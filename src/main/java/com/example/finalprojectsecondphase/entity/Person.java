@@ -1,9 +1,6 @@
 package com.example.finalprojectsecondphase.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -25,6 +22,9 @@ import java.util.Date;
 @SoftDelete
 @MappedSuperclass
 public class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer id;
     @Pattern(regexp = "[a-zA-Z]+")
     @NotNull(message = "firstname can not be null")
     String firstname;
