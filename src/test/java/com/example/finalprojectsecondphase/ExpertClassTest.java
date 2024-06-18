@@ -252,4 +252,15 @@ public class ExpertClassTest {
                 () -> expertService.signInExpert(username, password));
         Assertions.assertEquals("wrong username or password", exception.getMessage());
     }
+
+    @DisplayName("test for wrong signIn expert password")
+    @Order(11)
+    @Test()
+    public void wrongSignInExpertPassword() {
+        String username = correctExpert.getUsername();
+        String password = "456987";
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> expertService.signInExpert(username, password));
+        Assertions.assertEquals("wrong username or password", exception.getMessage());
+    }
 }
