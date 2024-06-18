@@ -12,15 +12,13 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(callSuper = true)
 @SoftDelete
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Customer extends Person{
+public class Customer extends Person {
     @Column(name = "customer_balance")
     Integer customerBalance;
-    @ToString.Exclude
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<Order> orders;
 
