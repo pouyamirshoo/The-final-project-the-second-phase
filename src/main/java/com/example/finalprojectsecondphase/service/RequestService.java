@@ -15,13 +15,14 @@ import org.springframework.stereotype.Service;
 public class RequestService {
 
     private final RequestRepository requestRepository;
+
     @Transactional
-    public void saveRequests(Request request){
+    public void saveRequests(Request request) {
         requestRepository.save(request);
     }
 
     @Transactional
-    public Request findByExpert(Expert expert){
+    public Request findByExpert(Expert expert) {
         return requestRepository.findByExpert(expert).orElseThrow(() ->
                 new NotFoundException("request for expert with id " + expert.getId() + " not founded"));
     }
