@@ -161,4 +161,16 @@ public class OrderClassTest {
                 () -> orderService.findByOrderCondition(OrderCondition.WAIT_FOR_ACCEPT));
         Assertions.assertEquals("there is no order with " + "WAIT_FOR_ACCEPT" + " now", exception.getMessage());
     }
+
+    @DisplayName("test for find all orders of one subDuty")
+    @org.junit.jupiter.api.Order(9)
+    @Test
+    @Transactional
+    public void findAllOrdersOfOneSubDuty() {
+        SubDuty subDuty = subDutyService.findById(1);
+        int expect = subDuty.getOrders().size();
+        List<com.example.finalprojectsecondphase.entity.Order> orders =
+                orderService.findSubDutyOrders(subDuty);
+        Assertions.assertEquals(expect, orders.size());
+    }
 }
