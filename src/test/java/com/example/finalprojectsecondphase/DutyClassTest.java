@@ -47,4 +47,13 @@ public class DutyClassTest {
         dutyService.saveDuty(correctDuty);
         Assertions.assertEquals(dutyService.findById(1).getDutyName(), correctDuty.getDutyName());
     }
+
+    @DisplayName("test for not save a duplicate name duty")
+    @Order(2)
+    @Test
+    public void dontSaveDuplicateNameDuty() {
+        Throwable exception = Assertions.assertThrows(DuplicateInformationException.class,
+                () -> dutyService.saveDuty(correctDuty));
+        Assertions.assertEquals("duplicate duty name can not insert", exception.getMessage());
+    }
 }
