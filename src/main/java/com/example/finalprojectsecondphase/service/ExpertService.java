@@ -92,4 +92,9 @@ public class ExpertService {
         else
             throw new NullPointerException();
     }
+
+    public boolean accessDenied(Expert expert) {
+        ExpertCondition expertCondition = expert.getExpertCondition();
+        return expertCondition == ExpertCondition.ACCEPTED;
+    }
 }
