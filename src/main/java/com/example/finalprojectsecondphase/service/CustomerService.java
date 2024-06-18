@@ -64,4 +64,10 @@ public class CustomerService {
         return customerRepository.findByUsernameAndPassword(username, password).orElseThrow(() ->
                 new NotFoundException("wrong username or password"));
     }
+
+    public void UpdatePassword(String password, int id) {
+        Customer customer = findById(id);
+        customer.setPassword(password);
+        validate(customer);
+    }
 }
