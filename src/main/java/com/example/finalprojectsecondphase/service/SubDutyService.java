@@ -53,4 +53,10 @@ public class SubDutyService {
         return subDutyRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("subDuty with id " + id + " not founded"));
     }
+
+    public void updateSubDutyPrice(int price, int id) {
+        SubDuty subDuty = findById(id);
+        subDuty.setPrice(price);
+        validate(subDuty);
+    }
 }
