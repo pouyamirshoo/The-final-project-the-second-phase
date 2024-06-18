@@ -18,4 +18,10 @@ import java.nio.file.Files;
 @Slf4j
 public class TakeAndCheckImageClassTest {
 
+    @Autowired
+    TakeAndCheckImage takeAndCheckImage;
+    @Autowired
+    ExpertService expertService;
+
+    String correctPath = "F:\\Maktab\\FinalProjectFirstPhase\\src\\main\\java\\images\\15639454.jpg";
 }
