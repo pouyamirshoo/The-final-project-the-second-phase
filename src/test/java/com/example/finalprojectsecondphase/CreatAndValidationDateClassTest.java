@@ -15,4 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Slf4j
 public class CreatAndValidationDateClassTest {
 
+    @Autowired
+    CreatAndValidationDate creatAndValidationDate;
 }
