@@ -66,4 +66,9 @@ public class ExpertService {
         return expertRepository.findByUsernameAndPassword(username, password).orElseThrow(() ->
                 new NotFoundException("wrong username or password"));
     }
+
+    public Expert findById(int id) {
+        return expertRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("expert with id " + id + " not founded"));
+    }
 }
