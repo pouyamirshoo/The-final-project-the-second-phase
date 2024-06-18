@@ -70,4 +70,9 @@ public class OrderService {
         else
             throw new NullPointerException("no order for this customer");
     }
+
+    public Order findById(int id) {
+        return orderRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("order with id " + id + " not founded"));
+    }
 }
