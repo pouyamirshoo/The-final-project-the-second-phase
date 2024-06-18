@@ -54,4 +54,9 @@ public class CustomerService {
             validate(customer);
         }
     }
+
+    public Customer findById(int id) {
+        return customerRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("customer with id " + id + " not founded"));
+    }
 }
