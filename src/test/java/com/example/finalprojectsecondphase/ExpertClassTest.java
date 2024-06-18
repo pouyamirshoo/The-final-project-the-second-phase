@@ -221,4 +221,14 @@ public class ExpertClassTest {
                 () -> expertService.validate(invalidInfoTypeExpert));
         Assertions.assertEquals("some of inputs are not valid", exception.getMessage());
     }
+
+    @DisplayName("test for signIn expert")
+    @Order(8)
+    @Test()
+    public void signInExpert() {
+        String username = correctExpert.getUsername();
+        String password = correctExpert.getPassword();
+        Expert foundedExpert = expertService.signInExpert(username, password);
+        Assertions.assertEquals(foundedExpert.getUsername(), correctExpert.getUsername());
+    }
 }
