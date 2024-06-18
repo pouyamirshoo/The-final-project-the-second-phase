@@ -59,4 +59,9 @@ public class CustomerService {
         return customerRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("customer with id " + id + " not founded"));
     }
+
+    public Customer singInCustomer(String username, String password) {
+        return customerRepository.findByUsernameAndPassword(username, password).orElseThrow(() ->
+                new NotFoundException("wrong username or password"));
+    }
 }
