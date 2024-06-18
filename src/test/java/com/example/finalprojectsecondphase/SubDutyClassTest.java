@@ -56,4 +56,14 @@ public class SubDutyClassTest {
                 .price(70000)
                 .build();
     }
+
+    @DisplayName("test for save a subDuty")
+    @Order(1)
+    @Test
+    public void saveSubDuty() {
+        Duty duty = dutyService.findById(1);
+        correctSubDuty.setDuty(duty);
+        subDutyService.saveSubDuty(correctSubDuty);
+        Assertions.assertEquals(subDutyService.findById(1).getSubDutyName(), correctSubDuty.getSubDutyName());
+    }
 }
