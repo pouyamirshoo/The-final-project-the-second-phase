@@ -75,4 +75,13 @@ public class OrderService {
         return orderRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("order with id " + id + " not founded"));
     }
+
+    @Transactional
+    public List<Order> findByOrderCondition(OrderCondition orderCondition) {
+        List<Order> orders = orderRepository.findByOrderCondition(orderCondition);
+        if (orders.size() > 0)
+            return orders;
+        else
+            throw new NullPointerException("there is no order with " + orderCondition + " now");
+    }
 }
