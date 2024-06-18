@@ -1,27 +1,18 @@
 package com.example.finalprojectsecondphase;
 
-import com.example.finalprojectsecondphase.entity.Customer;
 import com.example.finalprojectsecondphase.entity.Expert;
 import com.example.finalprojectsecondphase.entity.Offer;
 import com.example.finalprojectsecondphase.entity.Order;
-import com.example.finalprojectsecondphase.entity.SubDuty;
 import com.example.finalprojectsecondphase.entity.enums.BestTime;
-import com.example.finalprojectsecondphase.entity.enums.OfferCondition;
-import com.example.finalprojectsecondphase.entity.enums.OrderCondition;
 import com.example.finalprojectsecondphase.exception.DuplicateInformationException;
-import com.example.finalprojectsecondphase.exception.NotFoundException;
 import com.example.finalprojectsecondphase.exception.WrongInputPriceException;
 import com.example.finalprojectsecondphase.service.*;
 import com.example.finalprojectsecondphase.util.validation.CreatAndValidationDate;
 import com.example.finalprojectsecondphase.util.validation.TakeAndCheckImage;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Collections;
-import java.util.List;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -48,7 +39,7 @@ public class OfferClassTest {
     private static Offer firstOffer;
     private static Offer secondOffer;
     private static Offer wrongPriceOffer;
-    private static Offer dulicateOffer;
+    private static Offer duplicateOffer;
 
     private static com.example.finalprojectsecondphase.entity.Order secondOrder;
 
@@ -72,7 +63,7 @@ public class OfferClassTest {
                 .takeLong(3)
                 .build();
 
-        dulicateOffer = Offer.builder()
+        duplicateOffer = Offer.builder()
                 .offerPrice(160000)
                 .takeLong(2)
                 .build();
@@ -119,5 +110,18 @@ public class OfferClassTest {
         Throwable exception = Assertions.assertThrows(WrongInputPriceException.class,
                 () -> offerService.saveOffer(wrongPriceOffer));
         Assertions.assertEquals("offer price can not be less than default price", exception.getMessage());
+    }
+
+    @DisplayName("test for do not save a duplicate offer")
+    @org.junit.jupiter.api.Order(3)
+    @Test
+    public void doNotTakeDuplicateOffer() {
+        Expert expert = expertService.findById(1);
+        com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
+        duplicateOffer.setExpert(expert);
+        duplicateOffer.setOrder(order);
+        Throwable exception = Assertions.assertThrows(DuplicateInformationException.class,
+                () -> offerService.saveOffer(duplicateOffer));
+        Assertions.assertEquals("an order is exist by this expert for this order", exception.getMessage());
     }
 }
