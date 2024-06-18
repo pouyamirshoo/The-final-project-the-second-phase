@@ -87,4 +87,14 @@ public class SubDutyClassTest {
                 () -> subDutyService.saveSubDuty(correctSubDuty));
         Assertions.assertEquals("duplicate subDuty name can not insert", exception.getMessage());
     }
+
+    @DisplayName("test for can not find by subDuty id")
+    @Order(4)
+    @Test()
+    public void canNotFindBySubDutyId() {
+        int id = 3;
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> subDutyService.findById(id));
+        Assertions.assertEquals("subDuty with id " + id + " not founded", exception.getMessage());
+    }
 }
