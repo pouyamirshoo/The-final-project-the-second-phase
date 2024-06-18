@@ -92,4 +92,10 @@ public class OfferService {
         else
             throw new NullPointerException();
     }
+
+    @Transactional
+    public List<Offer> setOffersByExpertRate(Order order) {
+        List<Offer> offers = findOrderOffers(order);
+        return offers.stream().sorted(Comparator.comparing(a -> a.getExpert().getRate())).collect(Collectors.toList());
+    }
 }
