@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface ExpertRepository extends JpaRepository<Expert,Integer> {
     Optional<Expert> findByUsername(String username);
+    Optional<Expert> findByEmail(String email);
 
 }
