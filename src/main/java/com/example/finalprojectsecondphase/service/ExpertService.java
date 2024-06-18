@@ -1,11 +1,63 @@
 package com.example.finalprojectsecondphase.service;
 
+import com.example.finalprojectsecondphase.entity.Expert;
+import com.example.finalprojectsecondphase.entity.enums.ExpertCondition;
+import com.example.finalprojectsecondphase.exception.DuplicateInformationException;
+import com.example.finalprojectsecondphase.exception.InvalidInputInformationException;
+import com.example.finalprojectsecondphase.exception.NotFoundException;
 import com.example.finalprojectsecondphase.repository.ExpertRepository;
+import jakarta.transaction.Transactional;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ExpertService {
     private final ExpertRepository expertRepository;
+    ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+    Validator validator = validatorFactory.getValidator();
+
+    public void validate(Expert expert) {
+        Set<ConstraintViolation<Expert>> violations = validator.validate(expert);
+        if (violations.isEmpty()) {
+            expertRepository.save(expert);
+            log.info("expert saved");
+        } else {
+            System.out.println("Invalid user data found:");
+            for (ConstraintViolation<Expert> violation : violations) {
+                System.out.println(violation.getMessage());
+            }
+            throw new InvalidInputInformationException("some of inputs are not valid");
+        }
+    }
+
+    @Transactional
+    public void saveExpert(Expert expert) {
+        if (expertRepository.findByUsername(expert.getUsername()).isPresent()) {
+            log.error("duplicate username can not insert");
+            throw new DuplicateInformationException("duplicate username can not insert");
+        } else if (expertRepository.findByEmail(expert.getEmail()).isPresent()) {
+            log.error("duplicate email can not insert");
+            throw new DuplicateInformationException("duplicate email can not insert");
+        } else if (expertRepository.findByPhoneNumber(expert.getPhoneNumber()).isPresent()) {
+            log.error("duplicate phoneNumber can not insert");
+            throw new DuplicateInformationException("duplicate phoneNumber can not insert");
+        } else if (expertRepository.findByPostalCode(expert.getPostalCode()).isPresent()) {
+            log.error("duplicate postalCode can not insert");
+            throw new DuplicateInformationException("duplicate postalCode can not insert");
+        } else if (expertRepository.findByNationalCode(expert.getNationalCode()).isPresent()) {
+            log.error("duplicate nationalCode can not insert");
+            throw new DuplicateInformationException("duplicate nationalCode can not insert");
+        } else
+            validate(expert);
+    }
 }
