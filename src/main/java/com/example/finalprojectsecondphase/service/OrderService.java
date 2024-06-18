@@ -29,8 +29,32 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Slf4j
 public class OrderService {
+    private final OrderRepository orderRepository;
+    private final CreatAndValidationDate creatAndValidationDate;
+    private final OfferService offerService;
+    ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+    Validator validator = validatorFactory.getValidator();
 
+    public void validate(Order order) {
+        Set<ConstraintViolation<Order>> violations = validator.validate(order);
+        if (violations.isEmpty()) {
+            orderRepository.save(order);
+            log.info("order saved");
+        } else {
+            System.out.println("Invalid user data found:");
+            for (ConstraintViolation<Order> violation : violations) {
+                System.out.println(violation.getMessage());
+            }
+            throw new InvalidInputInformationException("some of inputs are not valid");
+        }
+    }
 
+    public void saveOrder(Order order) {
+        if (checkOrderPrice(order.getOrderPrice(), order.getSubDuty())
+                && creatAndValidationDate.checkNotPastTime(order.getNeedExpert())) {
+            validate(order);
+        }
+    }
 
     public boolean checkOrderPrice(int price, SubDuty subDuty) {
         int subDutyPrice = subDuty.getPrice();
