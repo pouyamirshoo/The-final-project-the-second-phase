@@ -196,4 +196,38 @@ public class OrderClassTest {
         orderService.makeOrderConditionWaitForAccept(order);
         Assertions.assertEquals(order.getOrderCondition(), OrderCondition.WAIT_FOR_ACCEPT);
     }
+
+
+
+    // TODO: 6/17/2024 CHECK DB FIRST **************
+
+
+    @DisplayName("test for make an order ongoing")
+    @org.junit.jupiter.api.Order(1)
+    @Test
+    public void makeOrderOngoing() {
+        Customer customer = customerService.findById(1);
+        SubDuty subDuty = subDutyService.findById(1);
+        forceOrder.setCustomer(customer);
+        forceOrder.setSubDuty(subDuty);
+        forceOrder.setDateCreatOrder(creatAndValidationDate.insertDate("2024-06-15"));
+        forceOrder.setOrderPrice(155000);
+        forceOrder.setNeedExpert(creatAndValidationDate.insertDate("2024-06-15"));
+        orderService.forcedSave(forceOrder);
+        int orderId = forceOrder.getId();
+
+        Expert expert = expertService.findById(1);
+        com.example.finalprojectsecondphase.entity.Order order = orderService.findById(orderId);
+        firstOffer.setExpert(expert);
+        firstOffer.setOrder(order);
+        offerService.forcedSave(firstOffer);
+        int offerId = firstOffer.getId();
+
+        Offer offer = offerService.findById(offerId);
+        offerService.updateOfferCondition(OfferCondition.ACCEPTED, offer);
+        orderService.updateOrderCondition(OrderCondition.ACCEPTED, order);
+
+        orderService.makeOrderOngoing(order);
+        Assertions.assertEquals(order.getOrderCondition(), OrderCondition.ONGOING);
+    }
 }
