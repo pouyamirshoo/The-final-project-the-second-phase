@@ -37,4 +37,8 @@ public class CreatAndValidationDate {
         else
             throw new WrongDateInsertException("date can not be before today");
     }
+
+    public DateTime creatPlusDaysDate(DateTime dateTime,int days){
+        return dateTime.plusDays(days);
+    }
 }
