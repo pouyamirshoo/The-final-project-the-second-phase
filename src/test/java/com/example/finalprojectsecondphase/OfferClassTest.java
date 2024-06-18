@@ -4,6 +4,8 @@ import com.example.finalprojectsecondphase.entity.Expert;
 import com.example.finalprojectsecondphase.entity.Offer;
 import com.example.finalprojectsecondphase.entity.Order;
 import com.example.finalprojectsecondphase.entity.enums.BestTime;
+import com.example.finalprojectsecondphase.entity.enums.OfferCondition;
+import com.example.finalprojectsecondphase.entity.enums.OrderCondition;
 import com.example.finalprojectsecondphase.exception.DuplicateInformationException;
 import com.example.finalprojectsecondphase.exception.NotFoundException;
 import com.example.finalprojectsecondphase.exception.WrongInputPriceException;
@@ -199,5 +201,22 @@ public class OfferClassTest {
         com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
         List<Offer> offers = offerService.setOffersByPrice(order);
         Assertions.assertEquals(160000, offers.get(0).getOfferPrice());
+    }
+
+
+
+    // TODO: 6/17/2024 -> RUN AFTER SECOND PART OF ORDER TEST *******
+
+
+    @DisplayName("test for accept an offer")
+    @org.junit.jupiter.api.Order(1)
+    @Test
+    public void acceptAnOffer() {
+        Offer offer = offerService.findById(1);
+        com.example.finalprojectsecondphase.entity.Order order = offer.getOrder();
+        offerService.updateOfferCondition(OfferCondition.ACCEPTED, offer);
+        orderService.updateOrderCondition(OrderCondition.ACCEPTED, order);
+        Assertions.assertEquals(offer.getOfferCondition(), OfferCondition.ACCEPTED);
+        Assertions.assertEquals(order.getOrderCondition(), OrderCondition.ACCEPTED);
     }
 }
