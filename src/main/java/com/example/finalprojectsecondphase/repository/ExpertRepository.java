@@ -14,5 +14,5 @@ public interface ExpertRepository extends JpaRepository<Expert,Integer> {
     Optional<Expert> findByPostalCode(String postalCode);
     Optional<Expert> findByNationalCode(String nationalCode);
     Optional<Expert> findByUsernameAndPassword(String username,String password);
-
+    List<Expert> findByExpertCondition(ExpertCondition expertCondition);
 }
