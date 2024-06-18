@@ -37,6 +37,7 @@ public class CustomerService {
             throw new InvalidInputInformationException("some of inputs are not valid");
         }
     }
+
     public void saveCustomer(Customer customer) {
         if (customerRepository.findByUsername(customer.getUsername()).isPresent()) {
             log.error("duplicate username can not insert");
@@ -69,5 +70,10 @@ public class CustomerService {
         Customer customer = findById(id);
         customer.setPassword(password);
         validate(customer);
+    }
+
+    public void removeCustomer(int id) {
+        Customer customer = findById(id);
+        customerRepository.delete(customer);
     }
 }
