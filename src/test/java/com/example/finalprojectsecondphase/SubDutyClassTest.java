@@ -128,4 +128,14 @@ public class SubDutyClassTest {
         subDutyService.updateSubDutyDescription(newDescription, id);
         Assertions.assertEquals(subDutyService.findById(id).getDescription(), newDescription);
     }
+
+    @DisplayName("test for find all subDuties of one duty")
+    @Order(8)
+    @Transactional
+    @Test()
+    public void takeSubDutiesOfOneDuty() {
+        int expect = dutyService.findById(1).getSubDuties().size();
+        List<SubDuty> subDutiesFounded = subDutyService.findByDuty(dutyService.findById(1));
+        Assertions.assertEquals(expect,subDutiesFounded.size());
+    }
 }
