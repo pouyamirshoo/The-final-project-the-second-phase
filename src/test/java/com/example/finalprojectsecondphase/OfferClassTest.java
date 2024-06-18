@@ -163,4 +163,15 @@ public class OfferClassTest {
         Assertions.assertThrows(NullPointerException.class,
                 () -> offerService.findExpertOffers(expert));
     }
+
+    @DisplayName("test for all offers for an order")
+    @org.junit.jupiter.api.Order(7)
+    @Transactional
+    @Test
+    public void findAllOffersOfOneOrder() {
+        com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
+        int expect = order.getOffers().size();
+        List<Offer> offers = offerService.findOrderOffers(order);
+        Assertions.assertEquals(expect, offers.size());
+    }
 }
