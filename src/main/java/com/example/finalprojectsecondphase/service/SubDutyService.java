@@ -59,4 +59,10 @@ public class SubDutyService {
         subDuty.setPrice(price);
         validate(subDuty);
     }
+
+    public void updateSubDutyDescription(String description, int id) {
+        SubDuty subDuty = findById(id);
+        subDuty.setDescription(description);
+        validate(subDuty);
+    }
 }
