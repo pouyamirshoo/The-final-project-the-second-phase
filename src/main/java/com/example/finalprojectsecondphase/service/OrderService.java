@@ -123,4 +123,14 @@ public class OrderService {
         } else
             throw new WrongDateInsertException("order can not be done before order end time");
     }
+
+    @Transactional
+    public void removeOrder(int id) {
+        Order order = findById(id);
+        orderRepository.delete(order);
+    }
+
+    public void forcedSave(Order order) {
+        orderRepository.save(order);
+    }
 }
