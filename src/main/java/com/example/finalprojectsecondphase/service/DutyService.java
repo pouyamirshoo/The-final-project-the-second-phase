@@ -55,4 +55,9 @@ public class DutyService {
     public List<Duty> showAllDuties() {
         return dutyRepository.findAll();
     }
+
+    public void removeDuty(int id) {
+        Duty duty = findById(id);
+        dutyRepository.delete(duty);
+    }
 }
