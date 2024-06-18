@@ -14,7 +14,6 @@ import java.util.Date;
 
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -34,7 +33,6 @@ public class Person {
     @Column(unique = true)
     @NotNull(message = "username can not be null")
     String username;
-    @ToString.Exclude
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#!%&*])[A-Za-z0-9@#!%&*]{8}$"
             , message = "password has to be 8 size and must contain at least 1 lower and upper case and 1 digit and 1 char ")
     @NotNull(message = "password can not be null")
@@ -59,5 +57,6 @@ public class Person {
     String postalCode;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false, name = "register_Time")
     Date registerTime;
 }
