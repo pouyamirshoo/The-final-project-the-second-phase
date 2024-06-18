@@ -51,4 +51,14 @@ public class RequestedClassTest {
         int id = correctRequest.getId();
         Assertions.assertEquals(requestService.findById(id).getExpert().getUsername(), expert.getUsername());
     }
+
+    @DisplayName("test for can not find by request id")
+    @Order(2)
+    @Test()
+    public void canNotFindById() {
+        int id = 2;
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> requestService.findById(id));
+        Assertions.assertEquals("request with id " + id + " not founded", exception.getMessage());
+    }
 }
