@@ -23,4 +23,11 @@ public class CreatAndValidationDate {
             return false;
         }
     }
+
+    public DateTime insertDate(String input) {
+        if (isValidStringInputDate(input)) {
+            return DateTime.parse(input);
+        } else
+            throw new InvalidInputInformationException("invalid date format entered");
+    }
 }
