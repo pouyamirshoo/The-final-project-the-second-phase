@@ -24,4 +24,19 @@ public class TakeAndCheckImageClassTest {
     ExpertService expertService;
 
     String correctPath = "F:\\Maktab\\FinalProjectFirstPhase\\src\\main\\java\\images\\15639454.jpg";
+
+    @DisplayName("test for take a correct image")
+    @Order(1)
+    @Test()
+    public void correctImage() {
+        File inputImage = new File(correctPath);
+        byte[] expect;
+        try {
+            expect = Files.readAllBytes(inputImage.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        byte[] result = takeAndCheckImage.expertImage(correctPath);
+        Assertions.assertArrayEquals(expect, result);
+    }
 }
