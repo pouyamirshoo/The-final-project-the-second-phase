@@ -283,4 +283,14 @@ public class ExpertClassTest {
         expertService.updateExpertCondition(expertCondition, id);
         Assertions.assertEquals(expertService.findById(id).getExpertCondition(), expertCondition);
     }
+
+    @DisplayName("test for find experts by condition")
+    @Order(14)
+    @Test()
+    public void findByExpertCondition() {
+        int expect = 1;
+        ExpertCondition expertCondition = ExpertCondition.ACCEPTED;
+        List<Expert> expertsFounded = expertService.findByExpertCondition(expertCondition);
+        Assertions.assertEquals(expect, expertsFounded.size());
+    }
 }
