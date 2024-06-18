@@ -39,4 +39,12 @@ public class DutyClassTest {
                 .dutyName("@#$hg")
                 .build();
     }
+
+    @DisplayName("test for save a duty")
+    @Order(1)
+    @Test
+    public void saveDuty() {
+        dutyService.saveDuty(correctDuty);
+        Assertions.assertEquals(dutyService.findById(1).getDutyName(), correctDuty.getDutyName());
+    }
 }
