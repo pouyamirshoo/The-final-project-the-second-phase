@@ -16,4 +16,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Slf4j
 public class CommentsClassTest {
 
+    private static Comments trueComment;
+    private static Comments wrongComment;
+
+    @BeforeAll
+    public static void makeComment(){
+        trueComment = Comments.builder()
+                .additionalComments("it was very good")
+                .rate(4)
+                .build();
+
+        wrongComment = Comments.builder()
+                .additionalComments("it was very good")
+                .rate(8)
+                .build();
+    }
+
 }
