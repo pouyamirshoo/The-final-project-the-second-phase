@@ -20,6 +20,13 @@ import java.util.List;
 @Slf4j
 public class RequestedClassTest {
 
+    @Autowired
+    RequestService requestService;
+    @Autowired
+    SubDutyService subDutyService;
+    @Autowired
+    ExpertService expertService;
+
     private static Request correctRequest;
 
     @BeforeAll
