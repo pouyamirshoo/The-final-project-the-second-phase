@@ -83,4 +83,16 @@ public class AdminClassTest {
                 () -> adminService.adminSignIn(username, password));
         Assertions.assertEquals("wrong username or password", exception.getMessage());
     }
+
+    @DisplayName("test for accept And Add Expert Auto")
+    @Order(4)
+    @Test()
+    public void acceptAndAddExpertAuto() {
+        Expert expert = expertService.findById(1);
+        Request request = requestService.findByExpert(expert);
+        int expect = request.getSubDuties().size();
+        adminService.addExpertToSubDutyAuto(1, expert);
+        List<SubDuty> subDuties = expert.getSubDuties();
+        Assertions.assertEquals(expect, subDuties.size());
+    }
 }
