@@ -143,4 +143,13 @@ public class OrderClassTest {
                 () -> orderService.findById(id));
         Assertions.assertEquals("order with id " + id + " not founded", exception.getMessage());
     }
+
+    @DisplayName("test for find all orders by order condition")
+    @org.junit.jupiter.api.Order(7)
+    @Test
+    public void findAllOrdersByOrderCondition() {
+        List<com.example.finalprojectsecondphase.entity.Order> orders =
+                orderService.findByOrderCondition(OrderCondition.RECEIVING_OFFERS);
+        Assertions.assertEquals(1, orders.size());
+    }
 }
