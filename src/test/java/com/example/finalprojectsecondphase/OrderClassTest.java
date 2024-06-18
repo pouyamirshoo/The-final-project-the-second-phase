@@ -112,4 +112,15 @@ public class OrderClassTest {
                 () -> orderService.saveOrder(sampleOrder));
         Assertions.assertEquals("date can not be before today", exception.getMessage());
     }
+
+    @DisplayName("test for find all orders of one customer")
+    @org.junit.jupiter.api.Order(4)
+    @Test
+    @Transactional
+    public void takeAllOrdersOfOneCustomer() {
+        int expect = customerService.findById(1).getOrders().size();
+        List<com.example.finalprojectsecondphase.entity.Order> orders =
+                orderService.findCustomerOrders(customerService.findById(1));
+        Assertions.assertEquals(expect, orders.size());
+    }
 }
