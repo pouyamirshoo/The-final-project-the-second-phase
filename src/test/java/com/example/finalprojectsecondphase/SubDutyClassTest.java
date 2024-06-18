@@ -138,4 +138,18 @@ public class SubDutyClassTest {
         List<SubDuty> subDutiesFounded = subDutyService.findByDuty(dutyService.findById(1));
         Assertions.assertEquals(expect,subDutiesFounded.size());
     }
+
+    @DisplayName("test for remove a subDuty")
+    @Order(9)
+    @Test
+    public void removeOneSubDuty() {
+        Duty duty = dutyService.findById(1);
+        deleteSubDuty.setDuty(duty);
+        subDutyService.saveSubDuty(deleteSubDuty);
+        int id = deleteSubDuty.getId();
+        subDutyService.removeSubDuty(deleteSubDuty);
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> subDutyService.findById(id));
+        Assertions.assertEquals("subDuty with id " + id + " not founded", exception.getMessage());
+    }
 }
