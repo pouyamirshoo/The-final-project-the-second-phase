@@ -113,4 +113,14 @@ public class OrderService {
         } else
             throw new WrongDateInsertException("order can not be ongoing before need expert time");
     }
+
+    public void makeOrderDone(Order order) {
+        Offer offer = offerService.findByOrderAndOfferCondition(order, OfferCondition.ONGOING);
+        DateTime orderEndTime = creatAndValidationDate.creatPlusDaysDate(order.getNeedExpert(), offer.getTakeLong());
+        if (orderEndTime.isEqualNow() || orderEndTime.isBeforeNow()) {
+            updateOrderCondition(OrderCondition.DONE, order);
+            offerService.updateOfferCondition(OfferCondition.DONE, offer);
+        } else
+            throw new WrongDateInsertException("order can not be done before order end time");
+    }
 }
