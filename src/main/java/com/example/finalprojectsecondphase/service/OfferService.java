@@ -28,12 +28,22 @@ import java.util.stream.Collectors;
 @Slf4j
 public class OfferService {
 
-
+    private final OfferRepository offerRepository;
+    ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+    Validator validator = validatorFactory.getValidator();
 
     public boolean checkOfferPrice(int price, SubDuty subDuty) {
         int subDutyPrice = subDuty.getPrice();
         if (price >= subDutyPrice)
             return true;
         else throw new WrongInputPriceException("offer price can not be less than default price");
+    }
+
+    @Transactional
+    public void checkDuplicateOffer(Offer offer) {
+        if (offerRepository.findByOrderAndExpert(offer.getOrder(), offer.getExpert()).isPresent()) {
+            throw new DuplicateInformationException("an order is exist by this expert for this order");
+        } else
+            validate(offer);
     }
 }
