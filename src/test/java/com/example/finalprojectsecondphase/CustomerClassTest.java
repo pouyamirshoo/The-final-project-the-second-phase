@@ -139,4 +139,13 @@ class CustomerClassTest {
                 () -> customerService.saveCustomer(duplicteEmailCustomer));
         Assertions.assertEquals("duplicate email can not insert", exception.getMessage());
     }
+
+    @DisplayName("test for not save customer for duplicate phoneNumber")
+    @Order(4)
+    @Test()
+    public void doNotSaveDuplicateCustomerPhoneNumber() {
+        Throwable exception = Assertions.assertThrows(DuplicateInformationException.class,
+                () -> customerService.saveCustomer(duplicatePhoneNumberCustomer));
+        Assertions.assertEquals("duplicate phoneNumber can not insert", exception.getMessage());
+    }
 }
