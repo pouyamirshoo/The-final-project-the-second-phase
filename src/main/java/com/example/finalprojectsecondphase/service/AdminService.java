@@ -20,6 +20,8 @@ import java.util.List;
 public class AdminService {
 
    private final AdminRepository adminRepository;
+   private final ExpertService expertService;
+   private final RequestService requestService;
 
 
    public void saveAdmin(Admin admin){
@@ -29,5 +31,15 @@ public class AdminService {
    public void adminSignIn(String username, String password) {
       adminRepository.findByUsernameAndPassword(username, password).orElseThrow(() ->
               new NotFoundException("wrong username or password"));
+   }
+
+   public void addExpertToSubDutyAuto(int id,Expert expert){
+      expertService.updateExpertCondition(ExpertCondition.ACCEPTED,id);
+      Request request = requestService.findByExpert(expert);
+      List<SubDuty> requestSubDuties = request.getSubDuties();
+      for (SubDuty subDuty : requestSubDuties){
+         expert.getSubDuties().add(subDuty);
+      }
+      expertService.validate(expert);
    }
 }
