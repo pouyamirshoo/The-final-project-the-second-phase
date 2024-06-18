@@ -104,4 +104,13 @@ public class OrderService {
             updateOrderCondition(OrderCondition.WAIT_FOR_ACCEPT, order);
         }
     }
+
+    public void makeOrderOngoing(Order order) {
+        Offer offer = offerService.findByOrderAndOfferCondition(order, OfferCondition.ACCEPTED);
+        if (order.getNeedExpert().isEqualNow() || order.getNeedExpert().isBeforeNow()) {
+            updateOrderCondition(OrderCondition.ONGOING, order);
+            offerService.updateOfferCondition(OfferCondition.ONGOING, offer);
+        } else
+            throw new WrongDateInsertException("order can not be ongoing before need expert time");
+    }
 }
