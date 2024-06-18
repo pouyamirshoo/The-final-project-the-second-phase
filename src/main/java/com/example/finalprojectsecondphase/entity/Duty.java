@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 @SoftDelete
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
@@ -26,7 +25,7 @@ public class Duty {
     @Pattern(regexp = "[a-zA-Z]+")
     @NotNull(message = "duty name can not be null")
     String dutyName;
-    @ToString.Exclude
-    @OneToMany(mappedBy = "duty",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "duty", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+
     List<SubDuty> subDuties;
 }
