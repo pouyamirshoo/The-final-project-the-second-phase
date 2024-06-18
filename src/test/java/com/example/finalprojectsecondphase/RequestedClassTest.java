@@ -20,4 +20,11 @@ import java.util.List;
 @Slf4j
 public class RequestedClassTest {
 
+    private static Request correctRequest;
+
+    @BeforeAll
+    public static void makeRequest() {
+        correctRequest = Request.builder()
+                .build();
+    }
 }
