@@ -16,7 +16,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 @SoftDelete
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
@@ -24,10 +23,10 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     Expert expert;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     Order order;
     @Column(name = "offer_condition")
