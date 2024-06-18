@@ -118,4 +118,10 @@ public class OfferService {
         offer.setOfferCondition(offerCondition);
         validate(offer);
     }
+
+    @Transactional
+    public Offer findByOrderAndOfferCondition(Order order, OfferCondition offerCondition) {
+        return offerRepository.findByOrderAndOfferCondition(order, offerCondition).orElseThrow(() ->
+                new NotFoundException("this order do not have any offer by this condition"));
+    }
 }
