@@ -155,4 +155,15 @@ public class ExpertClassTest {
         expertService.saveExpert(correctExpert);
         Assertions.assertEquals(expertService.findById(1).getUsername(), correctExpert.getUsername());
     }
+
+    @DisplayName("test for not save expert for duplicate username")
+    @Order(2)
+    @Test()
+    public void doNotSaveDuplicateExpertUsername() {
+        byte[] image = takeAndCheckImage.expertImage(correctPath);
+        duplicateUsernameExpert.setExpertImage(image);
+        Throwable exception = Assertions.assertThrows(DuplicateInformationException.class,
+                () -> expertService.saveExpert(duplicateUsernameExpert));
+        Assertions.assertEquals("duplicate username can not insert", exception.getMessage());
+    }
 }
