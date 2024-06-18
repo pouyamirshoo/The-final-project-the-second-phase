@@ -230,4 +230,20 @@ public class OrderClassTest {
         orderService.makeOrderOngoing(order);
         Assertions.assertEquals(order.getOrderCondition(), OrderCondition.ONGOING);
     }
+
+
+
+    // TODO: 6/17/2024 RUN AFTER MAKE ORDER ACCEPTED *******
+
+
+    @DisplayName("test for can not make order ongoing")
+    @org.junit.jupiter.api.Order(2)
+    @Test
+    public void canNotMakeOrderOngoing() {
+        com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
+        Throwable exception = Assertions.assertThrows(WrongDateInsertException.class,
+                () -> orderService.makeOrderOngoing(order));
+        Assertions.assertEquals("order can not be ongoing before need expert time",
+                exception.getMessage());
+    }
 }
