@@ -95,4 +95,16 @@ public class OfferClassTest {
                 .nationalCode("4115587695")
                 .build();
     }
+
+    @DisplayName("test for save an  offer")
+    @org.junit.jupiter.api.Order(1)
+    @Test
+    public void saveOffer() {
+        Expert expert = expertService.findById(1);
+        com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
+        firstOffer.setExpert(expert);
+        firstOffer.setOrder(order);
+        offerService.saveOffer(firstOffer);
+        Assertions.assertEquals(offerService.findById(1).getExpert().getUsername(), firstOffer.getExpert().getUsername());
+    }
 }
