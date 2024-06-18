@@ -104,4 +104,13 @@ public class OfferService {
         List<Offer> offers = findOrderOffers(order);
         return offers.stream().sorted(Comparator.comparingInt(Offer::getOfferPrice)).collect(Collectors.toList());
     }
+
+    @Transactional
+    public List<Offer> findByOfferCondition(OfferCondition offerCondition) {
+        List<Offer> offers = offerRepository.findByOfferCondition(offerCondition);
+        if (offers.size() > 0)
+            return offers;
+        else
+            throw new NullPointerException();
+    }
 }
