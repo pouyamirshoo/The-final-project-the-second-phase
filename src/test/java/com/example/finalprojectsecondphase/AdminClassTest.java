@@ -61,4 +61,15 @@ public class AdminClassTest {
         adminService.adminSignIn(admin.getUsername(), admin.getPassword());
         Assertions.assertEquals(1, admin.getId());
     }
+
+    @DisplayName("test for wrong signIn admin username")
+    @Order(2)
+    @Test()
+    public void wrongSignInAdminUsername() {
+        String username = "123456";
+        String password = admin.getPassword();
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> adminService.adminSignIn(username, password));
+        Assertions.assertEquals("wrong username or password", exception.getMessage());
+    }
 }
