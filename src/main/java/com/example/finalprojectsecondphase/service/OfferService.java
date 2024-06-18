@@ -74,4 +74,13 @@ public class OfferService {
             return true;
         } else throw new WrongConditionException("can not send offer for this order");
     }
+
+    @Transactional
+    public List<Offer> findExpertOffers(Expert expert) {
+        List<Offer> offers = offerRepository.findByExpert(expert);
+        if (offers.size() > 0)
+            return offers;
+        else
+            throw new NullPointerException();
+    }
 }
