@@ -121,4 +121,13 @@ class CustomerClassTest {
         customerService.saveCustomer(correctSecondCustomer);
         Assertions.assertEquals(correctCustomer.getUsername(), customerService.findById(1).getUsername());
     }
+
+    @DisplayName("test for not save customer for duplicate username")
+    @Order(2)
+    @Test()
+    public void doNotSaveDuplicateCustomerUsername() {
+        Throwable exception = Assertions.assertThrows(DuplicateInformationException.class,
+                () -> customerService.saveCustomer(duplicateUsernameCustomer));
+        Assertions.assertEquals("duplicate username can not insert", exception.getMessage());
+    }
 }
