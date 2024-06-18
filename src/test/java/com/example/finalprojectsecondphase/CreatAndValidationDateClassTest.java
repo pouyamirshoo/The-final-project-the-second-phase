@@ -17,4 +17,12 @@ public class CreatAndValidationDateClassTest {
 
     @Autowired
     CreatAndValidationDate creatAndValidationDate;
+
+    @DisplayName("test for check current time")
+    @Order(1)
+    @Test()
+    public void currentTime() {
+        DateTime dateTime = creatAndValidationDate.currentTime();
+        Assertions.assertEquals(dateTime.getDayOfWeek(), DateTime.now().getDayOfWeek());
+    }
 }
