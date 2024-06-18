@@ -1,7 +1,6 @@
 package com.example.finalprojectsecondphase.service;
 
 import com.example.finalprojectsecondphase.entity.Comments;
-import com.example.finalprojectsecondphase.entity.SubDuty;
 import com.example.finalprojectsecondphase.exception.InvalidInputInformationException;
 import com.example.finalprojectsecondphase.exception.NotFoundException;
 import com.example.finalprojectsecondphase.repository.CommentsRepository;
@@ -36,9 +35,13 @@ public class CommentsService {
             throw new InvalidInputInformationException("some of inputs are not valid");
         }
     }
-    public void saveComment(Comments comments){
+
+    public void saveComment(Comments comments) {
         validate(comments);
     }
 
-
+    public Comments findById(int id) {
+        return commentsRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("comment with id " + id + " not founded"));
+    }
 }
