@@ -12,17 +12,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 @SoftDelete
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Requested {
+public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     Expert expert;
-    @ToString.Exclude
+    @Column(insertable = false, updatable = false)
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "request_sub_duties",
+            joinColumns = @JoinColumn(name = "request_id"),
+            inverseJoinColumns = @JoinColumn(name = "sub_duties_id")
+    )
     List<SubDuty> subDuties;
 }
