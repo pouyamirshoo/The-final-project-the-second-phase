@@ -98,4 +98,10 @@ public class OfferService {
         List<Offer> offers = findOrderOffers(order);
         return offers.stream().sorted(Comparator.comparing(a -> a.getExpert().getRate())).collect(Collectors.toList());
     }
+
+    @Transactional
+    public List<Offer> setOffersByPrice(Order order) {
+        List<Offer> offers = findOrderOffers(order);
+        return offers.stream().sorted(Comparator.comparingInt(Offer::getOfferPrice)).collect(Collectors.toList());
+    }
 }
