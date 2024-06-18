@@ -1,7 +1,6 @@
 package com.example.finalprojectsecondphase;
 
-import com.example.finalprojectsecondphase.entity.Expert;
-import com.example.finalprojectsecondphase.entity.Offer;
+import com.example.finalprojectsecondphase.entity.*;
 import com.example.finalprojectsecondphase.entity.Order;
 import com.example.finalprojectsecondphase.entity.enums.BestTime;
 import com.example.finalprojectsecondphase.entity.enums.OfferCondition;
@@ -228,5 +227,23 @@ public class OfferClassTest {
         offerService.rejectOtherOffers(order);
         Offer rejectOffer = offerService.findById(3);
         Assertions.assertEquals(rejectOffer.getOfferCondition(), OfferCondition.REJECTED);
+    }
+
+    @DisplayName("test for an order that has no offer")
+    @org.junit.jupiter.api.Order(3)
+    @Test
+    public void orderHasNoOffer() {
+        Customer customer = customerService.findById(1);
+        SubDuty subDuty = subDutyService.findById(1);
+        secondOrder.setCustomer(customer);
+        secondOrder.setSubDuty(subDuty);
+        secondOrder.setDateCreatOrder(creatAndValidationDate.currentTime());
+        secondOrder.setOrderPrice(155000);
+        secondOrder.setNeedExpert(creatAndValidationDate.insertDate("2024-11-13"));
+        orderService.saveOrder(secondOrder);
+        int id = secondOrder.getId();
+        Order order = orderService.findById(id);
+        Assertions.assertThrows(NullPointerException.class,
+                () -> offerService.findOrderOffers(order));
     }
 }
