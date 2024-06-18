@@ -17,4 +17,26 @@ import java.util.List;
 @Slf4j
 public class DutyClassTest {
 
+    @Autowired
+    DutyService dutyService;
+
+    private static Duty correctDuty;
+    private static Duty correctSecondDuty;
+    private static Duty invalidInfoTypeDuty;
+
+    @BeforeAll
+    public static void makeDuty(){
+
+        correctDuty = Duty.builder()
+                .dutyName("NEZAFAT")
+                .build();
+
+        correctSecondDuty = Duty.builder()
+                .dutyName("TASISAT")
+                .build();
+
+        invalidInfoTypeDuty = Duty.builder()
+                .dutyName("@#$hg")
+                .build();
+    }
 }
