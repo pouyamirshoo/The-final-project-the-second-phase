@@ -191,4 +191,13 @@ public class OfferClassTest {
         Collections.reverse(offers);
         Assertions.assertEquals(1, offers.get(0).getExpert().getRate());
     }
+
+    @DisplayName("test for show all offers by price")
+    @org.junit.jupiter.api.Order(9)
+    @Test
+    public void showOffersByPrice() {
+        com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
+        List<Offer> offers = offerService.setOffersByPrice(order);
+        Assertions.assertEquals(160000, offers.get(0).getOfferPrice());
+    }
 }
