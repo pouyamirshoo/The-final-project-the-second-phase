@@ -49,4 +49,8 @@ public class SubDutyService {
         }
     }
 
+    public SubDuty findById(int id) {
+        return subDutyRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("subDuty with id " + id + " not founded"));
+    }
 }
