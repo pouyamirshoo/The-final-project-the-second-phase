@@ -14,4 +14,5 @@ public interface OfferRepository extends JpaRepository<Offer,Integer> {
     List<Offer> findByOrder(Order order);
     Optional<Offer> findByOrderAndExpert(Order order,Expert expert);
     Optional<Offer> findByOrderAndOfferCondition(Order order,OfferCondition offerCondition);
+    List<Offer> findByOfferCondition(OfferCondition offerCondition);
 }
