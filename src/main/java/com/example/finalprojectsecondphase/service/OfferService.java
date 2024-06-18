@@ -113,4 +113,9 @@ public class OfferService {
         else
             throw new NullPointerException();
     }
+
+    public void updateOfferCondition(OfferCondition offerCondition, Offer offer) {
+        offer.setOfferCondition(offerCondition);
+        validate(offer);
+    }
 }
