@@ -111,4 +111,14 @@ public class AdminClassTest {
         List<SubDuty> subDuties = expert.getSubDuties();
         Assertions.assertEquals(3, subDuties.size());
     }
+
+    @DisplayName("test for remove an expert from subDuty")
+    @Order(6)
+    @Test()
+    public void removeExpertFromSubDuties() {
+        Expert expert = expertService.findById(1);
+        adminService.removeExpertFromSubDuty(expert, 4);
+        List<SubDuty> newSubDuties = expert.getSubDuties();
+        Assertions.assertEquals(2, newSubDuties.size());
+    }
 }
