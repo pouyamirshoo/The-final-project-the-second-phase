@@ -67,4 +67,11 @@ public class OfferService {
         } else
             validate(offer);
     }
+
+    public boolean checkOrderCondition(Order order) {
+        if (order.getOrderCondition() == OrderCondition.RECEIVING_OFFERS ||
+                order.getOrderCondition() == OrderCondition.WAIT_FOR_ACCEPT) {
+            return true;
+        } else throw new WrongConditionException("can not send offer for this order");
+    }
 }
