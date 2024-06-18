@@ -73,4 +73,8 @@ public class SubDutyService {
         else
             throw new NullPointerException();
     }
+
+    public void removeSubDuty(SubDuty subDuty){
+        subDutyRepository.delete(subDuty);
+    }
 }
