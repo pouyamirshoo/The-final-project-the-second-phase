@@ -167,4 +167,15 @@ class CustomerClassTest {
         Customer foundedCustomer = customerService.singInCustomer(username, password);
         Assertions.assertEquals(foundedCustomer.getUsername(), correctCustomer.getUsername());
     }
+
+    @DisplayName("test for wrong signIn customer username")
+    @Order(7)
+    @Test()
+    public void wrongSignInCustomerUsername() {
+        String username = "123456";
+        String password = correctCustomer.getPassword();
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> customerService.singInCustomer(username, password));
+        Assertions.assertEquals("wrong username or password", exception.getMessage());
+    }
 }
