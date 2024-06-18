@@ -76,4 +76,15 @@ public class SubDutyClassTest {
         subDutyService.saveSubDuty(secondCorrectSubDuty);
         Assertions.assertEquals(subDutyService.findById(2).getSubDutyName(), secondCorrectSubDuty.getSubDutyName());
     }
+
+    @DisplayName("test for not save a duplicate name subDuty")
+    @Order(3)
+    @Test
+    public void dontSaveDuplicateNameSubDuty() {
+        Duty duty = dutyService.findById(1);
+        correctSubDuty.setDuty(duty);
+        Throwable exception = Assertions.assertThrows(DuplicateInformationException.class,
+                () -> subDutyService.saveSubDuty(correctSubDuty));
+        Assertions.assertEquals("duplicate subDuty name can not insert", exception.getMessage());
+    }
 }
