@@ -49,4 +49,20 @@ public class TakeAndCheckImageClassTest {
                 () -> takeAndCheckImage.expertImage(path));
         Assertions.assertEquals("this file is not jpg", exception.getMessage());
     }
+
+
+
+    // TODO: 6/17/2024 RUN AFTER AN EXPERT SAVED
+
+
+
+    @DisplayName("test for save an expert image in HDD")
+    @Order(3)
+    @Test
+    public void saveExpertImageInHDD(){
+        Expert expert = expertService.findById(1);
+        boolean flag = takeAndCheckImage.saveExpertImageToHDD(expert.getExpertImage(),
+                expert.getFirstname(),expert.getLastname());
+        Assertions.assertTrue(flag);
+    }
 }
