@@ -189,4 +189,14 @@ class CustomerClassTest {
                 () -> customerService.singInCustomer(username, password));
         Assertions.assertEquals("wrong username or password", exception.getMessage());
     }
+
+    @DisplayName("test for can not find by customer id")
+    @Order(9)
+    @Test()
+    public void canNotFindByCustomerId() {
+        int id = 2;
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> customerService.findById(id));
+        Assertions.assertEquals("customer with id " + id + " not founded", exception.getMessage());
+    }
 }
