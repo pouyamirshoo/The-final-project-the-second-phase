@@ -108,4 +108,14 @@ public class SubDutyClassTest {
                 () -> subDutyService.validate(invalidInfoTypeSubDuty));
         Assertions.assertEquals("some of inputs are not valid", exception.getMessage());
     }
+
+    @DisplayName("test for update a subDuty's price")
+    @Order(6)
+    @Test()
+    public void updateSubDutyPrice() {
+        int newPrice = 150000;
+        int id = 1;
+        subDutyService.updateSubDutyPrice(newPrice, id);
+        Assertions.assertEquals(subDutyService.findById(id).getPrice(), newPrice);
+    }
 }
