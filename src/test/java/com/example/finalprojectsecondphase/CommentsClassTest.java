@@ -27,7 +27,7 @@ public class CommentsClassTest {
     private static Comments wrongComment;
 
     @BeforeAll
-    public static void makeComment(){
+    public static void makeComment() {
         trueComment = Comments.builder()
                 .additionalComments("it was very good")
                 .rate(4)
@@ -42,17 +42,17 @@ public class CommentsClassTest {
     @DisplayName("test for save a true comment")
     @org.junit.jupiter.api.Order(1)
     @Test
-    public void saveComment(){
+    public void saveComment() {
         Order order = orderService.findById(2);
         trueComment.setOrder(order);
         commentsService.saveComment(trueComment);
-        Assertions.assertEquals(commentsService.findById(1).getOrder().getId(),order.getId());
+        Assertions.assertEquals(commentsService.findById(1).getOrder().getId(), order.getId());
     }
 
     @DisplayName("test for do not save a wrong comment")
     @org.junit.jupiter.api.Order(2)
     @Test
-    public void notSaveComment(){
+    public void notSaveComment() {
         Order order = orderService.findById(3);
         wrongComment.setOrder(order);
         Throwable exception = Assertions.assertThrows(InvalidInputInformationException.class,
