@@ -66,4 +66,14 @@ public class SubDutyClassTest {
         subDutyService.saveSubDuty(correctSubDuty);
         Assertions.assertEquals(subDutyService.findById(1).getSubDutyName(), correctSubDuty.getSubDutyName());
     }
+
+    @DisplayName("test for save second subDuty")
+    @Order(2)
+    @Test
+    public void saveSecondSubDuty() {
+        Duty duty = dutyService.findById(1);
+        secondCorrectSubDuty.setDuty(duty);
+        subDutyService.saveSubDuty(secondCorrectSubDuty);
+        Assertions.assertEquals(subDutyService.findById(2).getSubDutyName(), secondCorrectSubDuty.getSubDutyName());
+    }
 }
