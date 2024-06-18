@@ -123,4 +123,14 @@ public class OrderClassTest {
                 orderService.findCustomerOrders(customerService.findById(1));
         Assertions.assertEquals(expect, orders.size());
     }
+
+    @DisplayName("test for a customer that has no order")
+    @org.junit.jupiter.api.Order(5)
+    @Test
+    public void customerWithNoOrder() {
+        Customer customer = customerService.findById(2);
+        Throwable exception = Assertions.assertThrows(NullPointerException.class,
+                () -> orderService.findCustomerOrders(customer));
+        Assertions.assertEquals("no order for this customer", exception.getMessage());
+    }
 }
