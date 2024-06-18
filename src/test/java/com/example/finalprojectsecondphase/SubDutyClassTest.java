@@ -97,4 +97,15 @@ public class SubDutyClassTest {
                 () -> subDutyService.findById(id));
         Assertions.assertEquals("subDuty with id " + id + " not founded", exception.getMessage());
     }
+
+    @DisplayName("test for invalid input subDuty")
+    @Order(5)
+    @Test()
+    public void doNotSaveInvalidSubDutyInputInformation() {
+        Duty duty = dutyService.findById(1);
+        invalidInfoTypeSubDuty.setDuty(duty);
+        Throwable exception = Assertions.assertThrows(InvalidInputInformationException.class,
+                () -> subDutyService.validate(invalidInfoTypeSubDuty));
+        Assertions.assertEquals("some of inputs are not valid", exception.getMessage());
+    }
 }
