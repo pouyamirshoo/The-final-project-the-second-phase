@@ -112,4 +112,13 @@ class CustomerClassTest {
                 .postalCode("135613373")
                 .build();
     }
+
+    @DisplayName("test for customer save method")
+    @Order(1)
+    @Test
+    public void saveCostumer() {
+        customerService.saveCustomer(correctCustomer);
+        customerService.saveCustomer(correctSecondCustomer);
+        Assertions.assertEquals(correctCustomer.getUsername(), customerService.findById(1).getUsername());
+    }
 }
