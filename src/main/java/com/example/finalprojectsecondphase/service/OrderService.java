@@ -92,4 +92,9 @@ public class OrderService {
         else
             throw new NullPointerException("this subDuty do not have any order yet");
     }
+
+    public void updateOrderCondition(OrderCondition orderCondition, Order order) {
+        order.setOrderCondition(orderCondition);
+        validate(order);
+    }
 }
