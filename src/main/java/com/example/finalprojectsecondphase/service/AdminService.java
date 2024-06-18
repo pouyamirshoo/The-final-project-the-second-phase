@@ -22,7 +22,7 @@ public class AdminService {
    private final AdminRepository adminRepository;
    private final ExpertService expertService;
    private final RequestService requestService;
-
+   private final SubDutyService subDutyService;
 
    public void saveAdmin(Admin admin){
       adminRepository.save(admin);
@@ -41,5 +41,23 @@ public class AdminService {
          expert.getSubDuties().add(subDuty);
       }
       expertService.validate(expert);
+   }
+
+   public void addExpertToSubDutyManual(Expert expert,List<Integer> subDutyId){
+      expertService.updateExpertCondition(ExpertCondition.ACCEPTED,expert.getId());
+      List<SubDuty> createdSubDutyList = creatExpertSubDutyList(subDutyId);
+      for (SubDuty subDuty : createdSubDutyList){
+         expert.getSubDuties().add(subDuty);
+      }
+      expertService.validate(expert);
+   }
+
+   public List<SubDuty> creatExpertSubDutyList(List<Integer> subDutiesId){
+      List<SubDuty> subDuties = new ArrayList<>();
+      for (int id : subDutiesId) {
+         SubDuty subDuty = subDutyService.findById(id);
+         subDuties.add(subDuty);
+      }
+      return subDuties;
    }
 }
