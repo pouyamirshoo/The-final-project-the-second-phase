@@ -48,4 +48,15 @@ public class CommentsClassTest {
         commentsService.saveComment(trueComment);
         Assertions.assertEquals(commentsService.findById(1).getOrder().getId(),order.getId());
     }
+
+    @DisplayName("test for do not save a wrong comment")
+    @org.junit.jupiter.api.Order(2)
+    @Test
+    public void notSaveComment(){
+        Order order = orderService.findById(3);
+        wrongComment.setOrder(order);
+        Throwable exception = Assertions.assertThrows(InvalidInputInformationException.class,
+                () -> commentsService.saveComment(wrongComment));
+        Assertions.assertEquals("some of inputs are not valid", exception.getMessage());
+    }
 }
