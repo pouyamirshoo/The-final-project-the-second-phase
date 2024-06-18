@@ -25,4 +25,9 @@ public class RequestService {
         return requestRepository.findByExpert(expert).orElseThrow(() ->
                 new NotFoundException("request for expert with id " + expert.getId() + " not founded"));
     }
+
+    public Request findById(int id) {
+        return requestRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("request with id " + id + " not founded"));
+    }
 }
