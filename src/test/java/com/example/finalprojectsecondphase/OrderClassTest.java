@@ -64,4 +64,20 @@ public class OrderClassTest {
                 .takeLong(1)
                 .build();
     }
+
+    @DisplayName("test for save a correct order")
+    @org.junit.jupiter.api.Order(1)
+    @Test
+    public void saveAnOrder() {
+        Customer customer = customerService.findById(1);
+        SubDuty subDuty = subDutyService.findById(1);
+        sampleOrder.setCustomer(customer);
+        sampleOrder.setSubDuty(subDuty);
+        sampleOrder.setDateCreatOrder(creatAndValidationDate.currentTime());
+        sampleOrder.setOrderPrice(155000);
+        sampleOrder.setNeedExpert(creatAndValidationDate.insertDate("2024-11-13"));
+        orderService.saveOrder(sampleOrder);
+        Assertions.assertEquals(orderService.findById(1).getCustomer().getId(), customer.getId());
+        Assertions.assertEquals(orderService.findById(1).getSubDuty().getId(), subDuty.getId());
+    }
 }
