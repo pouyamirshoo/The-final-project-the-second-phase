@@ -83,4 +83,13 @@ public class ExpertService {
         expert.setExpertCondition(expertCondition);
         validate(expert);
     }
+
+    @Transactional
+    public List<Expert> findByExpertCondition(ExpertCondition expertCondition) {
+        List<Expert> experts = expertRepository.findByExpertCondition(expertCondition);
+        if (experts.size() > 0)
+            return experts;
+        else
+            throw new NullPointerException();
+    }
 }
