@@ -31,6 +31,21 @@ public class OrderClassTest {
 
     private static Offer firstOffer;
 
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    CustomerService customerService;
+    @Autowired
+    RequestService requestService;
+    @Autowired
+    SubDutyService subDutyService;
+    @Autowired
+    OfferService offerService;
+    @Autowired
+    ExpertService expertService;
+    @Autowired
+    CreatAndValidationDate creatAndValidationDate;
+
     @BeforeAll
     public static void makeOrderAndOffer() {
 
