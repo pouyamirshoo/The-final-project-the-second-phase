@@ -16,6 +16,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Slf4j
 public class CommentsClassTest {
 
+    @Autowired
+    CommentsService commentsService;
+    @Autowired
+    SubDutyService subDutyService;
+    @Autowired
+    OrderService orderService;
+
     private static Comments trueComment;
     private static Comments wrongComment;
 
