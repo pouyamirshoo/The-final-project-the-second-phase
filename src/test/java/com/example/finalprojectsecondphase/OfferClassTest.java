@@ -28,4 +28,54 @@ import java.util.List;
 @Slf4j
 public class OfferClassTest {
 
+    private static Offer firstOffer;
+    private static Offer secondOffer;
+    private static Offer wrongPriceOffer;
+    private static Offer dulicateOffer;
+
+    private static com.example.finalprojectsecondphase.entity.Order secondOrder;
+
+    private static Expert correctSecondExpert;
+
+    @BeforeAll
+    public static void makeOffer() {
+
+        firstOffer = Offer.builder()
+                .offerPrice(160000)
+                .takeLong(1)
+                .build();
+
+        secondOffer = Offer.builder()
+                .offerPrice(170000)
+                .takeLong(3)
+                .build();
+
+        wrongPriceOffer = Offer.builder()
+                .offerPrice(90000)
+                .takeLong(3)
+                .build();
+
+        dulicateOffer = Offer.builder()
+                .offerPrice(160000)
+                .takeLong(2)
+                .build();
+
+        secondOrder = com.example.finalprojectsecondphase.entity.Order.builder()
+                .description("need a very good person")
+                .bestTime(BestTime.MORNING)
+                .build();
+
+        correctSecondExpert = Expert.builder()
+                .firstname("ali")
+                .lastname("mir")
+                .username("ali123")
+                .password("aaAA12!@")
+                .email("ali@gmail.com")
+                .phoneNumber("+989128574434")
+                .city("tehran")
+                .address("ekbatan-A!1")
+                .postalCode("1393835763")
+                .nationalCode("4115587695")
+                .build();
+    }
 }
