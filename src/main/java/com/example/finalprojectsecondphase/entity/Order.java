@@ -7,29 +7,29 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.SoftDelete;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @SoftDelete
+@Table(name = "Orders")
 @Entity
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @ToString.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     Customer customer;
-    @ToString.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     SubDuty subDuty;
     @Column(name = "order_condition")
@@ -37,8 +37,7 @@ public class Order {
     OrderCondition orderCondition;
     @Column(name = "date_create_order")
     @NotNull
-    @Temporal(TemporalType.DATE)
-    Date dateCreatOrder;
+    DateTime dateCreatOrder;
     @NotNull(message = "you must enter price")
     int orderPrice;
     @Column(columnDefinition = "TEXT")
@@ -46,18 +45,20 @@ public class Order {
     String description;
     @Column(name = "need_expert")
     @NotNull
-    @Temporal(TemporalType.DATE)
-    Date needExpert;
+    DateTime needExpert;
     @Column(name = "best_time")
     @Enumerated(EnumType.STRING)
     @NotNull
     BestTime bestTime;
-    @ToString.Exclude
-    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
+    @Column(name = "update_Order_Date")
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    Date updateOrderDate;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     List<Offer> offers;
 
     @PrePersist
-    public void defaultValues(){
+    public void defaultValues() {
         if (orderCondition == null) {
             orderCondition = OrderCondition.RECEIVING_OFFERS;
         }
