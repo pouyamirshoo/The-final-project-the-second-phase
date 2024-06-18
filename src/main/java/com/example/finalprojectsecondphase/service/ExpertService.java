@@ -97,4 +97,9 @@ public class ExpertService {
         ExpertCondition expertCondition = expert.getExpertCondition();
         return expertCondition == ExpertCondition.ACCEPTED;
     }
+
+    public void removeExpert(int id){
+        Expert expert = findById(id);
+        expertRepository.delete(expert);
+    }
 }
