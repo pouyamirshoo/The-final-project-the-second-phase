@@ -118,4 +118,14 @@ public class SubDutyClassTest {
         subDutyService.updateSubDutyPrice(newPrice, id);
         Assertions.assertEquals(subDutyService.findById(id).getPrice(), newPrice);
     }
+
+    @DisplayName("test for update a subDuty's description")
+    @Order(7)
+    @Test()
+    public void updateSubDutyDescription() {
+        String newDescription = "this price is for two hours";
+        int id = 1;
+        subDutyService.updateSubDutyDescription(newDescription, id);
+        Assertions.assertEquals(subDutyService.findById(id).getDescription(), newDescription);
+    }
 }
