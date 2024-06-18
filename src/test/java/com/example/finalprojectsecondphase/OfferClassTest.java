@@ -107,4 +107,17 @@ public class OfferClassTest {
         offerService.saveOffer(firstOffer);
         Assertions.assertEquals(offerService.findById(1).getExpert().getUsername(), firstOffer.getExpert().getUsername());
     }
+
+    @DisplayName("test for not save an offer that price is lower than default")
+    @org.junit.jupiter.api.Order(2)
+    @Test
+    public void notAcceptOfferPrice() {
+        Expert expert = expertService.findById(1);
+        Order order = orderService.findById(1);
+        wrongPriceOffer.setExpert(expert);
+        wrongPriceOffer.setOrder(order);
+        Throwable exception = Assertions.assertThrows(WrongInputPriceException.class,
+                () -> offerService.saveOffer(wrongPriceOffer));
+        Assertions.assertEquals("offer price can not be less than default price", exception.getMessage());
+    }
 }
