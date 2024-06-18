@@ -84,4 +84,12 @@ public class OrderService {
         else
             throw new NullPointerException("there is no order with " + orderCondition + " now");
     }
+
+    public List<Order> findSubDutyOrders(SubDuty subDuty) {
+        List<Order> orders = orderRepository.findBySubDuty(subDuty);
+        if (orders.size() > 0)
+            return orders;
+        else
+            throw new NullPointerException("this subDuty do not have any order yet");
+    }
 }
