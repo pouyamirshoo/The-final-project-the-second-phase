@@ -208,4 +208,14 @@ class CustomerClassTest {
                 () -> customerService.validate(invalidInfoTypeCustomer));
         Assertions.assertEquals("some of inputs are not valid", exception.getMessage());
     }
+
+    @DisplayName("test for change a customer password")
+    @Order(11)
+    @Test
+    public void changeCustomerPassword() {
+        int id = 1;
+        String newPassword = "bbBB12!@";
+        customerService.UpdatePassword(newPassword, id);
+        Assertions.assertEquals(customerService.findById(id).getPassword(), newPassword);
+    }
 }
