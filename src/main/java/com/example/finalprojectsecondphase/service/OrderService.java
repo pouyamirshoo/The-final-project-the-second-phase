@@ -49,6 +49,13 @@ public class OrderService {
         }
     }
 
+    public boolean checkOrderPrice(int price, SubDuty subDuty) {
+        int subDutyPrice = subDuty.getPrice();
+        if (price >= subDutyPrice)
+            return true;
+        else throw new WrongInputPriceException("order price can not be less than default price");
+    }
+
     public void saveOrder(Order order) {
         if (checkOrderPrice(order.getOrderPrice(), order.getSubDuty())
                 && creatAndValidationDate.checkNotPastTime(order.getNeedExpert())) {
@@ -56,10 +63,11 @@ public class OrderService {
         }
     }
 
-    public boolean checkOrderPrice(int price, SubDuty subDuty) {
-        int subDutyPrice = subDuty.getPrice();
-        if (price >= subDutyPrice)
-            return true;
-        else throw new WrongInputPriceException("order price can not be less than default price");
+    public List<Order> findCustomerOrders(Customer customer) {
+        List<Order> orders = orderRepository.findByCustomer(customer);
+        if (orders.size() > 0)
+            return orders;
+        else
+            throw new NullPointerException("no order for this customer");
     }
 }
