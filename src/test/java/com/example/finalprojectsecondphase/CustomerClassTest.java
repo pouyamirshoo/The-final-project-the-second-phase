@@ -157,4 +157,14 @@ class CustomerClassTest {
                 () -> customerService.saveCustomer(duplicatePostalCodeCustomer));
         Assertions.assertEquals("duplicate postalCode can not insert", exception.getMessage());
     }
+
+    @DisplayName("test for signIn customer")
+    @Order(6)
+    @Test()
+    public void signInCustomer() {
+        String username = correctCustomer.getUsername();
+        String password = correctCustomer.getPassword();
+        Customer foundedCustomer = customerService.singInCustomer(username, password);
+        Assertions.assertEquals(foundedCustomer.getUsername(), correctCustomer.getUsername());
+    }
 }
