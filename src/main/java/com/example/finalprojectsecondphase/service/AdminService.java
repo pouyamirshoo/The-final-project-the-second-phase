@@ -25,4 +25,9 @@ public class AdminService {
    public void saveAdmin(Admin admin){
       adminRepository.save(admin);
    }
+
+   public void adminSignIn(String username, String password) {
+      adminRepository.findByUsernameAndPassword(username, password).orElseThrow(() ->
+              new NotFoundException("wrong username or password"));
+   }
 }
