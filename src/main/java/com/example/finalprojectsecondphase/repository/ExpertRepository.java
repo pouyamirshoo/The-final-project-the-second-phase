@@ -11,5 +11,6 @@ public interface ExpertRepository extends JpaRepository<Expert,Integer> {
     Optional<Expert> findByUsername(String username);
     Optional<Expert> findByEmail(String email);
     Optional<Expert> findByPhoneNumber(String phoneNumber);
+    Optional<Expert> findByNationalCode(String nationalCode);
 
 }
