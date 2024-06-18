@@ -52,4 +52,14 @@ public class CreatAndValidationDateClassTest {
         DateTime returnDate = creatAndValidationDate.insertDate(inputDate);
         Assertions.assertEquals(returnDate.toString(DateTimeFormat.forPattern("yyyy-MM-dd")), inputDate);
     }
+
+    @DisplayName("test for check wrong time return")
+    @Order(5)
+    @Test()
+    public void notInsertDate() {
+        String inputDate = "216546veejay";
+        Throwable exception = Assertions.assertThrows(InvalidInputInformationException.class,
+                () -> creatAndValidationDate.insertDate(inputDate));
+        Assertions.assertEquals("invalid date format entered", exception.getMessage());
+    }
 }
