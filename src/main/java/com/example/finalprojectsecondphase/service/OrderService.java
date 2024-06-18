@@ -97,4 +97,11 @@ public class OrderService {
         order.setOrderCondition(orderCondition);
         validate(order);
     }
+
+    public void makeOrderConditionWaitForAccept(Order order) {
+        List<Offer> offers = offerService.findOrderOffers(order);
+        if (offers.get(0) != null) {
+            updateOrderCondition(OrderCondition.WAIT_FOR_ACCEPT, order);
+        }
+    }
 }
