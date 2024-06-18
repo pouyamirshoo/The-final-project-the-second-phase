@@ -34,4 +34,21 @@ public class RequestedClassTest {
         correctRequest = Request.builder()
                 .build();
     }
+
+    @DisplayName("test for save a request")
+    @Order(1)
+    @Test()
+    public void saveOneRequest() {
+        List<SubDuty> requestSubDuties = new ArrayList<>();
+        SubDuty firstSubDuty = subDutyService.findById(1);
+        SubDuty secondSubDuty = subDutyService.findById(2);
+        requestSubDuties.add(firstSubDuty);
+        requestSubDuties.add(secondSubDuty);
+        Expert expert = expertService.findById(1);
+        correctRequest.setExpert(expert);
+        correctRequest.setSubDuties(requestSubDuties);
+        requestService.saveRequests(correctRequest);
+        int id = correctRequest.getId();
+        Assertions.assertEquals(requestService.findById(id).getExpert().getUsername(), expert.getUsername());
+    }
 }
