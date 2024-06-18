@@ -133,4 +133,14 @@ public class OrderClassTest {
                 () -> orderService.findCustomerOrders(customer));
         Assertions.assertEquals("no order for this customer", exception.getMessage());
     }
+
+    @DisplayName("test for can not find by order id")
+    @org.junit.jupiter.api.Order(6)
+    @Test()
+    public void canNotFindByOrderId() {
+        int id = 3;
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> orderService.findById(id));
+        Assertions.assertEquals("order with id " + id + " not founded", exception.getMessage());
+    }
 }
