@@ -10,8 +10,17 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 @Component
 public class CreatAndValidationDate {
-
     public DateTime currentTime() {
         return new DateTime(new Date(System.currentTimeMillis()));
+    }
+
+    public boolean isValidStringInputDate(String input) {
+        try {
+            DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
+            dtf.parseDateTime(input);
+            return true;
+        } catch (IllegalArgumentException iae) {
+            return false;
+        }
     }
 }
