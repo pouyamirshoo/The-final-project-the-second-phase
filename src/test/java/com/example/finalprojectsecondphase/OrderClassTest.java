@@ -183,4 +183,17 @@ public class OrderClassTest {
                 () -> orderService.findSubDutyOrders(subDuty));
         Assertions.assertEquals("this subDuty do not have any order yet", exception.getMessage());
     }
+
+
+
+    // TODO: 6/17/2024 RUN AT SECOND PART ********
+
+
+    @DisplayName("test for make an order Wait For Accept")
+    @Test
+    public void makeAnOrderWaitForAccept() {
+        com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
+        orderService.makeOrderConditionWaitForAccept(order);
+        Assertions.assertEquals(order.getOrderCondition(), OrderCondition.WAIT_FOR_ACCEPT);
+    }
 }
