@@ -34,4 +34,13 @@ public class CreatAndValidationDateClassTest {
         boolean checkFormat = creatAndValidationDate.isValidStringInputDate(inputDate);
         Assertions.assertTrue(checkFormat);
     }
+
+    @DisplayName("test for check incorrect input date format")
+    @Order(3)
+    @Test()
+    public void checkWrongInputDateFormat() {
+        String inputDate = "216546veejay";
+        boolean checkFormat = creatAndValidationDate.isValidStringInputDate(inputDate);
+        Assertions.assertFalse(checkFormat);
+    }
 }
