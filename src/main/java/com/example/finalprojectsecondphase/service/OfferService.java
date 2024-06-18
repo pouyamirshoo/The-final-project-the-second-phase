@@ -83,4 +83,13 @@ public class OfferService {
         else
             throw new NullPointerException();
     }
+
+    @Transactional
+    public List<Offer> findOrderOffers(Order order) {
+        List<Offer> offers = offerRepository.findByOrder(order);
+        if (offers.size() > 0)
+            return offers;
+        else
+            throw new NullPointerException();
+    }
 }
