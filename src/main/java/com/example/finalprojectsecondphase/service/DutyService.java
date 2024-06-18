@@ -46,4 +46,9 @@ public class DutyService {
             validate(duty);
         }
     }
+
+    public Duty findById(int id) {
+        return dutyRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("duty with id " + id + " not founded"));
+    }
 }
