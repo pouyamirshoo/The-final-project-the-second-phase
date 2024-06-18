@@ -65,4 +65,12 @@ public class SubDutyService {
         subDuty.setDescription(description);
         validate(subDuty);
     }
+
+    public List<SubDuty> findByDuty(Duty duty) {
+        List<SubDuty> subDuties = subDutyRepository.findByDuty(duty);
+        if (subDuties.size() > 0)
+            return subDuties;
+        else
+            throw new NullPointerException();
+    }
 }
