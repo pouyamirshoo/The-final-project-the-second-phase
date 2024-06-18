@@ -84,4 +84,16 @@ public class DutyClassTest {
         List<Duty> duties = dutyService.showAllDuties();
         Assertions.assertEquals(expect,duties.size());
     }
+
+    @DisplayName("test for remove a duty")
+    @Order(6)
+    @Test
+    public void removeOneDuty() {
+        dutyService.saveDuty(correctSecondDuty);
+        int id = correctSecondDuty.getId();
+        dutyService.removeDuty(id);
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> dutyService.findById(id));
+        Assertions.assertEquals("duty with id " + id + " not founded", exception.getMessage());
+    }
 }
