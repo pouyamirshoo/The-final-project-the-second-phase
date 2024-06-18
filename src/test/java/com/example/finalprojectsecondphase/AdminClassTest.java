@@ -95,4 +95,20 @@ public class AdminClassTest {
         List<SubDuty> subDuties = expert.getSubDuties();
         Assertions.assertEquals(expect, subDuties.size());
     }
+
+    @DisplayName("test for accept And Add Expert manual")
+    @Order(5)
+    @Test()
+    public void acceptAndAddExpertManual() {
+        Expert expert = expertService.findById(1);
+        Duty duty = dutyService.findById(1);
+        thirdCorrectSubDuty.setDuty(duty);
+        subDutyService.saveSubDuty(thirdCorrectSubDuty);
+        int id = thirdCorrectSubDuty.getId();
+        List<Integer> subDutiesId = new ArrayList<>();
+        subDutiesId.add(id);
+        adminService.addExpertToSubDutyManual(expert, subDutiesId);
+        List<SubDuty> subDuties = expert.getSubDuties();
+        Assertions.assertEquals(3, subDuties.size());
+    }
 }
