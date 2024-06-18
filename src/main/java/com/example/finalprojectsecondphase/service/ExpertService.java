@@ -77,4 +77,10 @@ public class ExpertService {
         expert.setPassword(password);
         validate(expert);
     }
+
+    public void updateExpertCondition(ExpertCondition expertCondition, int id) {
+        Expert expert = findById(id);
+        expert.setExpertCondition(expertCondition);
+        validate(expert);
+    }
 }
