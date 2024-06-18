@@ -173,4 +173,14 @@ public class OrderClassTest {
                 orderService.findSubDutyOrders(subDuty);
         Assertions.assertEquals(expect, orders.size());
     }
+
+    @DisplayName("test for a subDuty that has no order")
+    @org.junit.jupiter.api.Order(10)
+    @Test
+    public void subDutyThatHasNoOrder() {
+        SubDuty subDuty = subDutyService.findById(2);
+        Throwable exception = Assertions.assertThrows(NullPointerException.class,
+                () -> orderService.findSubDutyOrders(subDuty));
+        Assertions.assertEquals("this subDuty do not have any order yet", exception.getMessage());
+    }
 }
