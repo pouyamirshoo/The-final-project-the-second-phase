@@ -28,6 +28,23 @@ import java.util.List;
 @Slf4j
 public class OfferClassTest {
 
+    @Autowired
+    OfferService offerService;
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    CustomerService customerService;
+    @Autowired
+    RequestService requestService;
+    @Autowired
+    SubDutyService subDutyService;
+    @Autowired
+    ExpertService expertService;
+    @Autowired
+    CreatAndValidationDate creatAndValidationDate;
+    @Autowired
+    TakeAndCheckImage takeAndCheckImage;
+
     private static Offer firstOffer;
     private static Offer secondOffer;
     private static Offer wrongPriceOffer;
