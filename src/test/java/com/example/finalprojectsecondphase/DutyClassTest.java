@@ -66,4 +66,13 @@ public class DutyClassTest {
                 () -> dutyService.findById(id));
         Assertions.assertEquals("duty with id " + id + " not founded", exception.getMessage());
     }
+
+    @DisplayName("test for invalid input duty")
+    @Order(4)
+    @Test()
+    public void doNotSaveInvalidDutyInputInformation() {
+        Throwable exception = Assertions.assertThrows(InvalidInputInformationException.class,
+                () -> dutyService.validate(invalidInfoTypeDuty));
+        Assertions.assertEquals("some of inputs are not valid", exception.getMessage());
+    }
 }
