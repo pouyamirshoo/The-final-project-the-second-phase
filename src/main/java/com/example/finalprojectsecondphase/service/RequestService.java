@@ -20,4 +20,9 @@ public class RequestService {
         requestRepository.save(request);
     }
 
+    @Transactional
+    public Request findByExpert(Expert expert){
+        return requestRepository.findByExpert(expert).orElseThrow(() ->
+                new NotFoundException("request for expert with id " + expert.getId() + " not founded"));
+    }
 }
