@@ -11,4 +11,5 @@ import java.util.Optional;
 
 public interface OfferRepository extends JpaRepository<Offer,Integer> {
     List<Offer> findByExpert(Expert expert);
+    List<Offer> findByOrder(Order order);
 }
