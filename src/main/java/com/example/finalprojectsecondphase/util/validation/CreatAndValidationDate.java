@@ -30,4 +30,11 @@ public class CreatAndValidationDate {
         } else
             throw new InvalidInputInformationException("invalid date format entered");
     }
+
+    public boolean checkNotPastTime (DateTime dateTime) {
+        if (dateTime.isEqualNow() || dateTime.isAfterNow())
+            return true;
+        else
+            throw new WrongDateInsertException("date can not be before today");
+    }
 }
