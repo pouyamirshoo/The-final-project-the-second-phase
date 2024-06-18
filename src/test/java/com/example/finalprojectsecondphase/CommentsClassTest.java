@@ -39,4 +39,13 @@ public class CommentsClassTest {
                 .build();
     }
 
+    @DisplayName("test for save a true comment")
+    @org.junit.jupiter.api.Order(1)
+    @Test
+    public void saveComment(){
+        Order order = orderService.findById(2);
+        trueComment.setOrder(order);
+        commentsService.saveComment(trueComment);
+        Assertions.assertEquals(commentsService.findById(1).getOrder().getId(),order.getId());
+    }
 }
