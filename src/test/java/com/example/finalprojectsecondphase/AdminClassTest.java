@@ -17,6 +17,16 @@ import java.util.List;
 @Slf4j
 public class AdminClassTest {
 
+    @Autowired
+    AdminService adminService;
+    @Autowired
+    ExpertService expertService;
+    @Autowired
+    SubDutyService subDutyService;
+    @Autowired
+    DutyService dutyService;
+    @Autowired
+    RequestService requestService;
 
     private static Admin admin;
 
@@ -41,5 +51,14 @@ public class AdminClassTest {
                 .price(110000)
                 .description("this price is for an hour")
                 .build();
+    }
+
+    @DisplayName("test for Save And SignIn Admin")
+    @Order(1)
+    @Test()
+    public void voidSaveAndSignInAdmin() {
+        adminService.saveAdmin(admin);
+        adminService.adminSignIn(admin.getUsername(), admin.getPassword());
+        Assertions.assertEquals(1, admin.getId());
     }
 }
