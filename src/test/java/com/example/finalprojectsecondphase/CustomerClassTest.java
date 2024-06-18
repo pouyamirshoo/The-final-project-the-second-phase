@@ -199,4 +199,13 @@ class CustomerClassTest {
                 () -> customerService.findById(id));
         Assertions.assertEquals("customer with id " + id + " not founded", exception.getMessage());
     }
+
+    @DisplayName("test for invalid input customer")
+    @Order(10)
+    @Test()
+    public void doNotSaveInvalidCustomerInputInformation() {
+        Throwable exception = Assertions.assertThrows(InvalidInputInformationException.class,
+                () -> customerService.validate(invalidInfoTypeCustomer));
+        Assertions.assertEquals("some of inputs are not valid", exception.getMessage());
+    }
 }
