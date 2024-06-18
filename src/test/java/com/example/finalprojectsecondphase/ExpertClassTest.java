@@ -188,4 +188,15 @@ public class ExpertClassTest {
                 () -> expertService.saveExpert(duplicatePhoneNumberExpert));
         Assertions.assertEquals("duplicate phoneNumber can not insert", exception.getMessage());
     }
+
+    @DisplayName("test for not save expert for duplicate postalCode")
+    @Order(5)
+    @Test()
+    public void doNotSaveDuplicateExpertPostalCode() {
+        byte[] image = takeAndCheckImage.expertImage(correctPath);
+        duplicatePostalCodeExpert.setExpertImage(image);
+        Throwable exception = Assertions.assertThrows(DuplicateInformationException.class,
+                () -> expertService.saveExpert(duplicatePostalCodeExpert));
+        Assertions.assertEquals("duplicate postalCode can not insert", exception.getMessage());
+    }
 }
