@@ -255,4 +255,13 @@ public class OfferClassTest {
         List<Offer> offers = offerService.findByOfferCondition(offerCondition);
         Assertions.assertEquals(1, offers.size());
     }
+
+    @DisplayName("test for can not find offers by condition")
+    @org.junit.jupiter.api.Order(5)
+    @Test
+    public void canNotFindByOfferCondition() {
+        OfferCondition offerCondition = OfferCondition.DONE;
+        Assertions.assertThrows(NullPointerException.class,
+                () -> offerService.findByOfferCondition(offerCondition));
+    }
 }
