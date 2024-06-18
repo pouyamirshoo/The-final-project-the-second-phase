@@ -19,52 +19,52 @@ import java.util.List;
 @Slf4j
 public class AdminService {
 
-   private final AdminRepository adminRepository;
-   private final ExpertService expertService;
-   private final RequestService requestService;
-   private final SubDutyService subDutyService;
+    private final AdminRepository adminRepository;
+    private final ExpertService expertService;
+    private final RequestService requestService;
+    private final SubDutyService subDutyService;
 
-   public void saveAdmin(Admin admin){
-      adminRepository.save(admin);
-   }
+    public void saveAdmin(Admin admin) {
+        adminRepository.save(admin);
+    }
 
-   public void adminSignIn(String username, String password) {
-      adminRepository.findByUsernameAndPassword(username, password).orElseThrow(() ->
-              new NotFoundException("wrong username or password"));
-   }
+    public void adminSignIn(String username, String password) {
+        adminRepository.findByUsernameAndPassword(username, password).orElseThrow(() ->
+                new NotFoundException("wrong username or password"));
+    }
 
-   public void addExpertToSubDutyAuto(int id,Expert expert){
-      expertService.updateExpertCondition(ExpertCondition.ACCEPTED,id);
-      Request request = requestService.findByExpert(expert);
-      List<SubDuty> requestSubDuties = request.getSubDuties();
-      for (SubDuty subDuty : requestSubDuties){
-         expert.getSubDuties().add(subDuty);
-      }
-      expertService.validate(expert);
-   }
+    public void addExpertToSubDutyAuto(int id, Expert expert) {
+        expertService.updateExpertCondition(ExpertCondition.ACCEPTED, id);
+        Request request = requestService.findByExpert(expert);
+        List<SubDuty> requestSubDuties = request.getSubDuties();
+        for (SubDuty subDuty : requestSubDuties) {
+            expert.getSubDuties().add(subDuty);
+        }
+        expertService.validate(expert);
+    }
 
-   public void addExpertToSubDutyManual(Expert expert,List<Integer> subDutyId){
-      expertService.updateExpertCondition(ExpertCondition.ACCEPTED,expert.getId());
-      List<SubDuty> createdSubDutyList = creatExpertSubDutyList(subDutyId);
-      for (SubDuty subDuty : createdSubDutyList){
-         expert.getSubDuties().add(subDuty);
-      }
-      expertService.validate(expert);
-   }
+    public void addExpertToSubDutyManual(Expert expert, List<Integer> subDutyId) {
+        expertService.updateExpertCondition(ExpertCondition.ACCEPTED, expert.getId());
+        List<SubDuty> createdSubDutyList = creatExpertSubDutyList(subDutyId);
+        for (SubDuty subDuty : createdSubDutyList) {
+            expert.getSubDuties().add(subDuty);
+        }
+        expertService.validate(expert);
+    }
 
-   public List<SubDuty> creatExpertSubDutyList(List<Integer> subDutiesId){
-      List<SubDuty> subDuties = new ArrayList<>();
-      for (int id : subDutiesId) {
-         SubDuty subDuty = subDutyService.findById(id);
-         subDuties.add(subDuty);
-      }
-      return subDuties;
-   }
+    public List<SubDuty> creatExpertSubDutyList(List<Integer> subDutiesId) {
+        List<SubDuty> subDuties = new ArrayList<>();
+        for (int id : subDutiesId) {
+            SubDuty subDuty = subDutyService.findById(id);
+            subDuties.add(subDuty);
+        }
+        return subDuties;
+    }
 
-   public void removeExpertFromSubDuty(Expert expert,int subDutyId){
-      List<SubDuty> subDuties = expert.getSubDuties();
-      subDuties.removeIf(subDuty -> subDuty.getId() == subDutyId);
-      expert.setSubDuties(subDuties);
-      expertService.validate(expert);
-   }
+    public void removeExpertFromSubDuty(Expert expert, int subDutyId) {
+        List<SubDuty> subDuties = expert.getSubDuties();
+        subDuties.removeIf(subDuty -> subDuty.getId() == subDutyId);
+        expert.setSubDuties(subDuties);
+        expertService.validate(expert);
+    }
 }
