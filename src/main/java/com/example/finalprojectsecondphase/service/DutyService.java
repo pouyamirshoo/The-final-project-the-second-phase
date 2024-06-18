@@ -51,4 +51,8 @@ public class DutyService {
         return dutyRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("duty with id " + id + " not founded"));
     }
+
+    public List<Duty> showAllDuties() {
+        return dutyRepository.findAll();
+    }
 }
