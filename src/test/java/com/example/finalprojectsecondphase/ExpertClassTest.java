@@ -177,4 +177,15 @@ public class ExpertClassTest {
                 () -> expertService.saveExpert(duplicateEmailExpert));
         Assertions.assertEquals("duplicate email can not insert", exception.getMessage());
     }
+
+    @DisplayName("test for not save expert for duplicate phoneNumber")
+    @Order(4)
+    @Test()
+    public void doNotSaveDuplicateExpertPhoneNumber() {
+        byte[] image = takeAndCheckImage.expertImage(correctPath);
+        duplicatePhoneNumberExpert.setExpertImage(image);
+        Throwable exception = Assertions.assertThrows(DuplicateInformationException.class,
+                () -> expertService.saveExpert(duplicatePhoneNumberExpert));
+        Assertions.assertEquals("duplicate phoneNumber can not insert", exception.getMessage());
+    }
 }
