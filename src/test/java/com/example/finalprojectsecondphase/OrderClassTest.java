@@ -26,4 +26,27 @@ import java.util.List;
 @Slf4j
 public class OrderClassTest {
 
+    private static com.example.finalprojectsecondphase.entity.Order sampleOrder;
+    private static com.example.finalprojectsecondphase.entity.Order forceOrder;
+
+    private static Offer firstOffer;
+
+    @BeforeAll
+    public static void makeOrderAndOffer() {
+
+        sampleOrder = com.example.finalprojectsecondphase.entity.Order.builder()
+                .description("need a very good person")
+                .bestTime(BestTime.MORNING)
+                .build();
+
+        forceOrder = com.example.finalprojectsecondphase.entity.Order.builder()
+                .description("need a very good person")
+                .bestTime(BestTime.MORNING)
+                .build();
+
+        firstOffer = Offer.builder()
+                .offerPrice(100000)
+                .takeLong(1)
+                .build();
+    }
 }
