@@ -25,4 +25,13 @@ public class CreatAndValidationDateClassTest {
         DateTime dateTime = creatAndValidationDate.currentTime();
         Assertions.assertEquals(dateTime.getDayOfWeek(), DateTime.now().getDayOfWeek());
     }
+
+    @DisplayName("test for check correct input date format")
+    @Order(2)
+    @Test()
+    public void checkCorrectInputDateFormat() {
+        String inputDate = "2024-05-08";
+        boolean checkFormat = creatAndValidationDate.isValidStringInputDate(inputDate);
+        Assertions.assertTrue(checkFormat);
+    }
 }
