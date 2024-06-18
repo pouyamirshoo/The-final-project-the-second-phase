@@ -20,6 +20,11 @@ import java.util.List;
 @Slf4j
 public class SubDutyClassTest {
 
+    @Autowired
+    SubDutyService subDutyService;
+    @Autowired
+    DutyService dutyService;
+
     private static SubDuty correctSubDuty;
     private static SubDuty secondCorrectSubDuty;
     private static SubDuty deleteSubDuty;
