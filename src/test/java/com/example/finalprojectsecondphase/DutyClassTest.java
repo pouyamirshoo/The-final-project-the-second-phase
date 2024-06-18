@@ -25,7 +25,7 @@ public class DutyClassTest {
     private static Duty invalidInfoTypeDuty;
 
     @BeforeAll
-    public static void makeDuty(){
+    public static void makeDuty() {
 
         correctDuty = Duty.builder()
                 .dutyName("NEZAFAT")
@@ -82,7 +82,7 @@ public class DutyClassTest {
     public void showAllDuties() {
         int expect = 1;
         List<Duty> duties = dutyService.showAllDuties();
-        Assertions.assertEquals(expect,duties.size());
+        Assertions.assertEquals(expect, duties.size());
     }
 
     @DisplayName("test for remove a duty")
