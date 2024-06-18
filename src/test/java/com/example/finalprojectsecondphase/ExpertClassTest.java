@@ -210,4 +210,15 @@ public class ExpertClassTest {
                 () -> expertService.saveExpert(duplicateNationalCodeExpert));
         Assertions.assertEquals("duplicate nationalCode can not insert", exception.getMessage());
     }
+
+    @DisplayName("test for invalid input image expert")
+    @Order(7)
+    @Test()
+    public void doNotSaveInvalidExpertInputInformation() {
+        byte[] image = takeAndCheckImage.expertImage("F:\\Maktab\\FinalProjectFirstPhase\\src\\main\\java\\images\\Sample-jpg-image-10mb.jpg");
+        invalidInfoTypeExpert.setExpertImage(image);
+        Throwable exception = Assertions.assertThrows(InvalidInputInformationException.class,
+                () -> expertService.validate(invalidInfoTypeExpert));
+        Assertions.assertEquals("some of inputs are not valid", exception.getMessage());
+    }
 }
