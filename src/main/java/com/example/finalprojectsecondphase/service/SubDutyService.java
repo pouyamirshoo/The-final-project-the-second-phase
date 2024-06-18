@@ -39,7 +39,8 @@ public class SubDutyService {
             throw new InvalidInputInformationException("some of inputs are not valid");
         }
     }
-@Transactional
+
+    @Transactional
     public void saveSubDuty(SubDuty subDuty) {
         if (subDutyRepository.findBySubDutyName(subDuty.getSubDutyName()).isPresent()) {
             log.error("duplicate subDuty name can not insert");
@@ -74,7 +75,7 @@ public class SubDutyService {
             throw new NullPointerException();
     }
 
-    public void removeSubDuty(SubDuty subDuty){
+    public void removeSubDuty(SubDuty subDuty) {
         subDutyRepository.delete(subDuty);
     }
 }
