@@ -39,4 +39,14 @@ public class TakeAndCheckImageClassTest {
         byte[] result = takeAndCheckImage.expertImage(correctPath);
         Assertions.assertArrayEquals(expect, result);
     }
+
+    @DisplayName("test for not take a wrong image")
+    @Order(2)
+    @Test()
+    public void wrongImage() {
+        String path = "F:\\Maktab\\FinalProjectFirstPhase\\src\\main\\java\\images\\main-qimg-2409a441a71fdc85cf987c349d364cb4.webp";
+        Throwable exception = Assertions.assertThrows(WrongImageInputException.class,
+                () -> takeAndCheckImage.expertImage(path));
+        Assertions.assertEquals("this file is not jpg", exception.getMessage());
+    }
 }
