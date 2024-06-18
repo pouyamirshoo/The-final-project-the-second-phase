@@ -20,4 +20,35 @@ import java.util.List;
 @Slf4j
 public class SubDutyClassTest {
 
+    private static SubDuty correctSubDuty;
+    private static SubDuty secondCorrectSubDuty;
+    private static SubDuty deleteSubDuty;
+    private static SubDuty invalidInfoTypeSubDuty;
+
+    @BeforeAll
+    public static void makeSubDuty(){
+
+        correctSubDuty = SubDuty.builder()
+                .subDutyName("manzel")
+                .price(100000)
+                .description("this price is for an hour")
+                .build();
+
+        secondCorrectSubDuty = SubDuty.builder()
+                .subDutyName("Mashin")
+                .price(70000)
+                .description("this price is for an hour")
+                .build();
+
+        deleteSubDuty = SubDuty.builder()
+                .subDutyName("sakhteman")
+                .price(200000)
+                .description("this price is for an hour")
+                .build();
+
+        invalidInfoTypeSubDuty = SubDuty.builder()
+                .subDutyName("!#$jgd")
+                .price(70000)
+                .build();
+    }
 }
