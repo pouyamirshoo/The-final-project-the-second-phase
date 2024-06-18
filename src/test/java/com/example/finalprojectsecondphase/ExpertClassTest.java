@@ -20,6 +20,13 @@ import java.util.List;
 @Slf4j
 public class ExpertClassTest {
 
+    @Autowired
+    ExpertService expertService;
+    @Autowired
+    SubDutyService subDutyService;
+    @Autowired
+    TakeAndCheckImage takeAndCheckImage;
+
     String correctPath = "F:\\Maktab\\FinalProjectFirstPhase\\src\\main\\java\\images\\15639454.jpg";
 
     private static Expert correctExpert;
