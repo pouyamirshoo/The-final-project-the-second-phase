@@ -145,4 +145,14 @@ public class ExpertClassTest {
                 .nationalCode("15464818971")
                 .build();
     }
+
+    @DisplayName("test for save a correct expert")
+    @Order(1)
+    @Test()
+    public void saveCorrectImage() {
+        byte[] image = takeAndCheckImage.expertImage(correctPath);
+        correctExpert.setExpertImage(image);
+        expertService.saveExpert(correctExpert);
+        Assertions.assertEquals(expertService.findById(1).getUsername(), correctExpert.getUsername());
+    }
 }
