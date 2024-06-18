@@ -5,6 +5,7 @@ import com.example.finalprojectsecondphase.entity.Offer;
 import com.example.finalprojectsecondphase.entity.Order;
 import com.example.finalprojectsecondphase.entity.enums.BestTime;
 import com.example.finalprojectsecondphase.exception.DuplicateInformationException;
+import com.example.finalprojectsecondphase.exception.NotFoundException;
 import com.example.finalprojectsecondphase.exception.WrongInputPriceException;
 import com.example.finalprojectsecondphase.service.*;
 import com.example.finalprojectsecondphase.util.validation.CreatAndValidationDate;
@@ -123,5 +124,15 @@ public class OfferClassTest {
         Throwable exception = Assertions.assertThrows(DuplicateInformationException.class,
                 () -> offerService.saveOffer(duplicateOffer));
         Assertions.assertEquals("an order is exist by this expert for this order", exception.getMessage());
+    }
+
+    @DisplayName("can not find an offer by id")
+    @org.junit.jupiter.api.Order(4)
+    @Test
+    public void canNotFindById() {
+        int id = 2;
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> offerService.findById(id));
+        Assertions.assertEquals("offer with id " + id + " not founded", exception.getMessage());
     }
 }
