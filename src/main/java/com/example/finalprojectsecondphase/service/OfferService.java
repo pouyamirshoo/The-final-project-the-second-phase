@@ -124,4 +124,14 @@ public class OfferService {
         return offerRepository.findByOrderAndOfferCondition(order, offerCondition).orElseThrow(() ->
                 new NotFoundException("this order do not have any offer by this condition"));
     }
+
+    @Transactional
+    public void rejectOtherOffers(Order order) {
+        List<Offer> offers = offerRepository.findByOrder(order);
+        for (Offer offer : offers) {
+            if (offer.getOfferCondition() != OfferCondition.ACCEPTED) {
+                updateOfferCondition(OfferCondition.REJECTED, offer);
+            }
+        }
+    }
 }
