@@ -246,4 +246,30 @@ public class OrderClassTest {
         Assertions.assertEquals("order can not be ongoing before need expert time",
                 exception.getMessage());
     }
+
+
+
+    // TODO: 6/17/2024 CHECK DB FIRST **************
+
+
+    @DisplayName("test for make order done")
+    @Test
+    public void makeOrderDone() {
+        List<com.example.finalprojectsecondphase.entity.Order> orders = orderService.findByOrderCondition(OrderCondition.ONGOING);
+        com.example.finalprojectsecondphase.entity.Order order = orders.get(0);
+        orderService.makeOrderDone(order);
+        Assertions.assertEquals(order.getOrderCondition(), OrderCondition.DONE);
+    }
+
+    @DisplayName("test for delete an order")
+    @Test
+    public void removeOrder() {
+        List<com.example.finalprojectsecondphase.entity.Order> orders = orderService.findByOrderCondition(OrderCondition.DONE);
+        Order order = orders.get(0);
+        int id = order.getId();
+        orderService.removeOrder(id);
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> orderService.findById(id));
+        Assertions.assertEquals("order with id " + id + " not founded", exception.getMessage());
+    }
 }
