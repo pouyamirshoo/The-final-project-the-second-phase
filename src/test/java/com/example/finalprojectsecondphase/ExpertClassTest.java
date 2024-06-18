@@ -293,4 +293,13 @@ public class ExpertClassTest {
         List<Expert> expertsFounded = expertService.findByExpertCondition(expertCondition);
         Assertions.assertEquals(expect, expertsFounded.size());
     }
+
+    @DisplayName("test for check expert access")
+    @Order(15)
+    @Test()
+    public void checkExpertAccess() {
+        Expert expert = expertService.findById(1);
+        boolean access = expertService.accessDenied(expert);
+        Assertions.assertTrue(access);
+    }
 }
