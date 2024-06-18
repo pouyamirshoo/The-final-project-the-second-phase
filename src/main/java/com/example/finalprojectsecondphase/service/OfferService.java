@@ -32,6 +32,27 @@ public class OfferService {
     ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
     Validator validator = validatorFactory.getValidator();
 
+    public void validate(Offer offer) {
+        Set<ConstraintViolation<Offer>> violations = validator.validate(offer);
+        if (violations.isEmpty()) {
+            offerRepository.save(offer);
+            log.info("subDuty saved");
+        } else {
+            System.out.println("Invalid user data found:");
+            for (ConstraintViolation<Offer> violation : violations) {
+                System.out.println(violation.getMessage());
+            }
+        }
+    }
+
+    @Transactional
+    public void saveOffer(Offer offer) {
+        if (checkOfferPrice(offer.getOfferPrice(), offer.getOrder().getSubDuty()) ||
+                checkOrderCondition(offer.getOrder())) {
+            checkDuplicateOffer(offer);
+        }
+    }
+
     public boolean checkOfferPrice(int price, SubDuty subDuty) {
         int subDutyPrice = subDuty.getPrice();
         if (price >= subDutyPrice)
