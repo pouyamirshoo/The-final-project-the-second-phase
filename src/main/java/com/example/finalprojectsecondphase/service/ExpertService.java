@@ -71,4 +71,10 @@ public class ExpertService {
         return expertRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("expert with id " + id + " not founded"));
     }
+
+    public void UpdatePassword(String password, int id) {
+        Expert expert = findById(id);
+        expert.setPassword(password);
+        validate(expert);
+    }
 }
