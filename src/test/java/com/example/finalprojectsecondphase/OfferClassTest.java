@@ -10,10 +10,13 @@ import com.example.finalprojectsecondphase.exception.WrongInputPriceException;
 import com.example.finalprojectsecondphase.service.*;
 import com.example.finalprojectsecondphase.util.validation.CreatAndValidationDate;
 import com.example.finalprojectsecondphase.util.validation.TakeAndCheckImage;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -126,7 +129,7 @@ public class OfferClassTest {
         Assertions.assertEquals("an order is exist by this expert for this order", exception.getMessage());
     }
 
-    @DisplayName("can not find an offer by id")
+    @DisplayName("test for can not find an offer by id")
     @org.junit.jupiter.api.Order(4)
     @Test
     public void canNotFindById() {
@@ -134,5 +137,16 @@ public class OfferClassTest {
         Throwable exception = Assertions.assertThrows(NotFoundException.class,
                 () -> offerService.findById(id));
         Assertions.assertEquals("offer with id " + id + " not founded", exception.getMessage());
+    }
+
+    @DisplayName("test for all offers for an expert")
+    @org.junit.jupiter.api.Order(5)
+    @Transactional
+    @Test
+    public void findAllExpertOffers() {
+        Expert expert = expertService.findById(1);
+        int expect = expert.getOffers().size();
+        List<Offer> offers = offerService.findExpertOffers(expert);
+        Assertions.assertEquals(expect, offers.size());
     }
 }
