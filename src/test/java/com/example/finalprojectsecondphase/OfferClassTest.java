@@ -16,6 +16,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collections;
 import java.util.List;
 
 @SpringBootTest
@@ -173,5 +174,21 @@ public class OfferClassTest {
         int expect = order.getOffers().size();
         List<Offer> offers = offerService.findOrderOffers(order);
         Assertions.assertEquals(expect, offers.size());
+    }
+
+    @DisplayName("test for show all offers by expert rate")
+    @org.junit.jupiter.api.Order(8)
+    @Test
+    public void showOffersByExpertRate() {
+        com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
+        Expert expert = expertService.findById(2);
+        expert.setRate(1);
+        expertService.validate(expert);
+        secondOffer.setOrder(order);
+        secondOffer.setExpert(expert);
+        offerService.saveOffer(secondOffer);
+        List<Offer> offers = offerService.setOffersByExpertRate(order);
+        Collections.reverse(offers);
+        Assertions.assertEquals(1, offers.get(0).getExpert().getRate());
     }
 }
