@@ -19,4 +19,10 @@ import java.util.List;
 @Slf4j
 public class AdminService {
 
+   private final AdminRepository adminRepository;
+
+
+   public void saveAdmin(Admin admin){
+      adminRepository.save(admin);
+   }
 }
