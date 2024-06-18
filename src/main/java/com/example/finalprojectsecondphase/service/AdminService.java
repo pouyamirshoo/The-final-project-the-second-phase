@@ -60,4 +60,11 @@ public class AdminService {
       }
       return subDuties;
    }
+
+   public void removeExpertFromSubDuty(Expert expert,int subDutyId){
+      List<SubDuty> subDuties = expert.getSubDuties();
+      subDuties.removeIf(subDuty -> subDuty.getId() == subDutyId);
+      expert.setSubDuties(subDuties);
+      expertService.validate(expert);
+   }
 }
