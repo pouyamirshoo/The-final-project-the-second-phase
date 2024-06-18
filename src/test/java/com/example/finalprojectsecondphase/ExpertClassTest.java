@@ -263,4 +263,14 @@ public class ExpertClassTest {
                 () -> expertService.signInExpert(username, password));
         Assertions.assertEquals("wrong username or password", exception.getMessage());
     }
+
+    @DisplayName("test for change an expert password")
+    @Order(12)
+    @Test
+    public void changeExpertPassword() {
+        int id = 1;
+        String newPassword = "bbBB12!@";
+        expertService.UpdatePassword(newPassword, id);
+        Assertions.assertEquals(expertService.findById(id).getPassword(), newPassword);
+    }
 }
