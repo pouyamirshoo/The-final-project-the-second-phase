@@ -273,4 +273,14 @@ public class ExpertClassTest {
         expertService.UpdatePassword(newPassword, id);
         Assertions.assertEquals(expertService.findById(id).getPassword(), newPassword);
     }
+
+    @DisplayName("test for change an expert condition")
+    @Order(13)
+    @Test
+    public void changeExpertCondition() {
+        int id = 1;
+        ExpertCondition expertCondition = ExpertCondition.ACCEPTED;
+        expertService.updateExpertCondition(expertCondition, id);
+        Assertions.assertEquals(expertService.findById(id).getExpertCondition(), expertCondition);
+    }
 }
