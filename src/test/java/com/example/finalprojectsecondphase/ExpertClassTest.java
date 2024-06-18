@@ -231,4 +231,14 @@ public class ExpertClassTest {
         Expert foundedExpert = expertService.signInExpert(username, password);
         Assertions.assertEquals(foundedExpert.getUsername(), correctExpert.getUsername());
     }
+
+    @DisplayName("test for can not find by expert id")
+    @Order(9)
+    @Test()
+    public void canNotFindByExpertId() {
+        int id = 3;
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> expertService.findById(id));
+        Assertions.assertEquals("expert with id " + id + " not founded", exception.getMessage());
+    }
 }
