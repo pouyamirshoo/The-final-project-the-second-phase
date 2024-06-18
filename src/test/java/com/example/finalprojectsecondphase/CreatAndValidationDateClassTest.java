@@ -43,4 +43,13 @@ public class CreatAndValidationDateClassTest {
         boolean checkFormat = creatAndValidationDate.isValidStringInputDate(inputDate);
         Assertions.assertFalse(checkFormat);
     }
+
+    @DisplayName("test for check correct time return")
+    @Order(4)
+    @Test()
+    public void insertDate() {
+        String inputDate = "2024-05-08";
+        DateTime returnDate = creatAndValidationDate.insertDate(inputDate);
+        Assertions.assertEquals(returnDate.toString(DateTimeFormat.forPattern("yyyy-MM-dd")), inputDate);
+    }
 }
