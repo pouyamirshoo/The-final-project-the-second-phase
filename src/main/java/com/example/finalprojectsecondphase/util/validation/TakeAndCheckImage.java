@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 @Component
@@ -24,5 +25,15 @@ public class TakeAndCheckImage {
         }
         else
             throw new WrongImageInputException("this file is not jpg");
+    }
+
+    public boolean saveExpertImageToHDD(byte[] expertImage,String firstName,String lastName) {
+        String path = "F:\\Maktab\\FinalProjectFirstPhase\\src\\main\\java\\images\\save from dataBase\\" + firstName + " " + lastName + ".jpg";
+        try (FileOutputStream fos = new FileOutputStream(path)) {
+            fos.write(expertImage);
+            return true;
+        } catch (IOException e) {
+            throw new WrongImageInputException("can not save image");
+        }
     }
 }
