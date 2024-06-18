@@ -11,4 +11,7 @@ import java.util.Date;
 @Component
 public class CreatAndValidationDate {
 
+    public DateTime currentTime() {
+        return new DateTime(new Date(System.currentTimeMillis()));
+    }
 }
