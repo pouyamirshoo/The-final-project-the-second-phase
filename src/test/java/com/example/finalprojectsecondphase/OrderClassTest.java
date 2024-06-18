@@ -152,4 +152,13 @@ public class OrderClassTest {
                 orderService.findByOrderCondition(OrderCondition.RECEIVING_OFFERS);
         Assertions.assertEquals(1, orders.size());
     }
+
+    @DisplayName("test for a no order by this order condition")
+    @org.junit.jupiter.api.Order(8)
+    @Test
+    public void findNoOrdersByOrderCondition() {
+        Throwable exception = Assertions.assertThrows(NullPointerException.class,
+                () -> orderService.findByOrderCondition(OrderCondition.WAIT_FOR_ACCEPT));
+        Assertions.assertEquals("there is no order with " + "WAIT_FOR_ACCEPT" + " now", exception.getMessage());
+    }
 }
