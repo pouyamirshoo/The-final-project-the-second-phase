@@ -246,4 +246,13 @@ public class OfferClassTest {
         Assertions.assertThrows(NullPointerException.class,
                 () -> offerService.findOrderOffers(order));
     }
+
+    @DisplayName("test for find offers by condition")
+    @org.junit.jupiter.api.Order(4)
+    @Test
+    public void findByOfferCondition() {
+        OfferCondition offerCondition = OfferCondition.REJECTED;
+        List<Offer> offers = offerService.findByOfferCondition(offerCondition);
+        Assertions.assertEquals(1, offers.size());
+    }
 }
