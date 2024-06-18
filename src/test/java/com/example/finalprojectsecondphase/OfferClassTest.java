@@ -219,4 +219,14 @@ public class OfferClassTest {
         Assertions.assertEquals(offer.getOfferCondition(), OfferCondition.ACCEPTED);
         Assertions.assertEquals(order.getOrderCondition(), OrderCondition.ACCEPTED);
     }
+
+    @DisplayName("test for make other offers rejected")
+    @org.junit.jupiter.api.Order(2)
+    @Test
+    public void rejectOtherOffers() {
+        com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
+        offerService.rejectOtherOffers(order);
+        Offer rejectOffer = offerService.findById(3);
+        Assertions.assertEquals(rejectOffer.getOfferCondition(), OfferCondition.REJECTED);
+    }
 }
