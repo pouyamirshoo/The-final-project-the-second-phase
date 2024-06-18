@@ -60,4 +60,10 @@ public class ExpertService {
         } else
             validate(expert);
     }
+
+    @Transactional
+    public Expert signInExpert(String username, String password) {
+        return expertRepository.findByUsernameAndPassword(username, password).orElseThrow(() ->
+                new NotFoundException("wrong username or password"));
+    }
 }
