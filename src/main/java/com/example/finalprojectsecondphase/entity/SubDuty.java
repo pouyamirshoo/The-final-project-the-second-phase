@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 @SoftDelete
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
@@ -22,7 +21,7 @@ public class SubDuty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @Column(unique = true,name = "sub_duty_name")
+    @Column(unique = true, name = "sub_duty_name")
     @Pattern(regexp = "[a-zA-Z]+")
     @NotNull(message = "sub duty name can not be null")
     String subDutyName;
@@ -31,10 +30,8 @@ public class SubDuty {
     @Column(columnDefinition = "TEXT")
     @NotNull(message = "description most not null")
     String description;
-    @ToString.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     Duty duty;
-    @ToString.Exclude
-    @OneToMany(mappedBy = "subDuty",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "subDuty", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     List<Order> orders;
 }
