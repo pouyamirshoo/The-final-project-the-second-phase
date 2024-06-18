@@ -62,4 +62,14 @@ public class CreatAndValidationDateClassTest {
                 () -> creatAndValidationDate.insertDate(inputDate));
         Assertions.assertEquals("invalid date format entered", exception.getMessage());
     }
+
+    @DisplayName("test for check return a not past date")
+    @Order(6)
+    @Test()
+    public void checkNowOrFutureDate() {
+        String inputNotPastDate = "2024-10-13";
+        DateTime notPastDate = creatAndValidationDate.insertDate(inputNotPastDate);
+        boolean checkNotPastDate = creatAndValidationDate.checkNotPastTime(notPastDate);
+        Assertions.assertTrue(checkNotPastDate);
+    }
 }
