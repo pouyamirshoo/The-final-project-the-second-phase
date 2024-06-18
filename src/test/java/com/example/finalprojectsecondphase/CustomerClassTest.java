@@ -218,4 +218,13 @@ class CustomerClassTest {
         customerService.UpdatePassword(newPassword, id);
         Assertions.assertEquals(customerService.findById(id).getPassword(), newPassword);
     }
+
+    @DisplayName("test for remove a customer")
+    @Test
+    public void removeOneCustomer() {
+        customerService.removeCustomer(2);
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> customerService.findById(2));
+        Assertions.assertEquals("customer with id " + 2 + " not founded", exception.getMessage());
+    }
 }
