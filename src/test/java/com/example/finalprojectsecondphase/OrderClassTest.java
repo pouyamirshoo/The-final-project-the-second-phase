@@ -96,4 +96,20 @@ public class OrderClassTest {
                 () -> orderService.saveOrder(sampleOrder));
         Assertions.assertEquals("order price can not be less than default price", exception.getMessage());
     }
+
+    @DisplayName("test for do not save an order with a past date for need an expert")
+    @org.junit.jupiter.api.Order(3)
+    @Test
+    public void dontSavePastDateForNeedExpertOrder() {
+        Customer customer = customerService.findById(1);
+        SubDuty subDuty = subDutyService.findById(1);
+        sampleOrder.setCustomer(customer);
+        sampleOrder.setSubDuty(subDuty);
+        sampleOrder.setDateCreatOrder(creatAndValidationDate.currentTime());
+        sampleOrder.setOrderPrice(155000);
+        sampleOrder.setNeedExpert(creatAndValidationDate.insertDate("2024-05-13"));
+        Throwable exception = Assertions.assertThrows(WrongDateInsertException.class,
+                () -> orderService.saveOrder(sampleOrder));
+        Assertions.assertEquals("date can not be before today", exception.getMessage());
+    }
 }
