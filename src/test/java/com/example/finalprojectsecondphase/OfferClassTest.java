@@ -149,4 +149,18 @@ public class OfferClassTest {
         List<Offer> offers = offerService.findExpertOffers(expert);
         Assertions.assertEquals(expect, offers.size());
     }
+
+    @DisplayName("test for an expert that has no offer")
+    @org.junit.jupiter.api.Order(6)
+    @Test
+    public void expertHasNoOffer() {
+        correctSecondExpert.setExpertImage(
+                takeAndCheckImage.expertImage(
+                        "F:\\Maktab\\FinalProjectFirstPhase\\src\\main\\java\\images\\daylily-flower-and-buds-blur2.jpg"));
+        expertService.saveExpert(correctSecondExpert);
+        int id = correctSecondExpert.getId();
+        Expert expert = expertService.findById(id);
+        Assertions.assertThrows(NullPointerException.class,
+                () -> offerService.findExpertOffers(expert));
+    }
 }
