@@ -75,4 +75,13 @@ public class DutyClassTest {
                 () -> dutyService.validate(invalidInfoTypeDuty));
         Assertions.assertEquals("some of inputs are not valid", exception.getMessage());
     }
+
+    @DisplayName("test for show all duties")
+    @Order(5)
+    @Test
+    public void showAllDuties() {
+        int expect = 1;
+        List<Duty> duties = dutyService.showAllDuties();
+        Assertions.assertEquals(expect,duties.size());
+    }
 }
