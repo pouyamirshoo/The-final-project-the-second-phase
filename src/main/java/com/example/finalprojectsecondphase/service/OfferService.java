@@ -134,4 +134,8 @@ public class OfferService {
             }
         }
     }
+
+    public void forcedSave(Offer offer) {
+        offerRepository.save(offer);
+    }
 }
