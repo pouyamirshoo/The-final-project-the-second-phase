@@ -80,4 +80,20 @@ public class OrderClassTest {
         Assertions.assertEquals(orderService.findById(1).getCustomer().getId(), customer.getId());
         Assertions.assertEquals(orderService.findById(1).getSubDuty().getId(), subDuty.getId());
     }
+
+    @DisplayName("test for do not save an order with a price less than default price")
+    @org.junit.jupiter.api.Order(2)
+    @Test
+    public void dontSaveWrongPriceOrder() {
+        Customer customer = customerService.findById(1);
+        SubDuty subDuty = subDutyService.findById(1);
+        sampleOrder.setCustomer(customer);
+        sampleOrder.setSubDuty(subDuty);
+        sampleOrder.setDateCreatOrder(creatAndValidationDate.currentTime());
+        sampleOrder.setOrderPrice(90000);
+        sampleOrder.setNeedExpert(creatAndValidationDate.insertDate("2024-10-13"));
+        Throwable exception = Assertions.assertThrows(WrongInputPriceException.class,
+                () -> orderService.saveOrder(sampleOrder));
+        Assertions.assertEquals("order price can not be less than default price", exception.getMessage());
+    }
 }
