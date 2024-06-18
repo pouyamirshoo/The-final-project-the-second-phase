@@ -302,4 +302,21 @@ public class ExpertClassTest {
         boolean access = expertService.accessDenied(expert);
         Assertions.assertTrue(access);
     }
+
+
+    // TODO: 6/17/2024 RUN SECOND PART
+
+
+    @DisplayName("test for remove an expert")
+    @Test
+    public void removeAnExpert() {
+        byte[] image = takeAndCheckImage.expertImage(correctPath);
+        deleteExpert.setExpertImage(image);
+        expertService.saveExpert(deleteExpert);
+        int id = deleteExpert.getId();
+        expertService.removeExpert(id);
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> expertService.findById(id));
+        Assertions.assertEquals("expert with id " + id + " not founded", exception.getMessage());
+    }
 }
