@@ -56,4 +56,14 @@ public class DutyClassTest {
                 () -> dutyService.saveDuty(correctDuty));
         Assertions.assertEquals("duplicate duty name can not insert", exception.getMessage());
     }
+
+    @DisplayName("test for can not find by duty id")
+    @Order(3)
+    @Test()
+    public void canNotFindByDutyId() {
+        int id = 2;
+        Throwable exception = Assertions.assertThrows(NotFoundException.class,
+                () -> dutyService.findById(id));
+        Assertions.assertEquals("duty with id " + id + " not founded", exception.getMessage());
+    }
 }
