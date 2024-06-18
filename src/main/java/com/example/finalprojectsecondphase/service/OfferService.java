@@ -68,6 +68,11 @@ public class OfferService {
             validate(offer);
     }
 
+    public Offer findById(int id) {
+        return offerRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("offer with id " + id + " not founded"));
+    }
+
     public boolean checkOrderCondition(Order order) {
         if (order.getOrderCondition() == OrderCondition.RECEIVING_OFFERS ||
                 order.getOrderCondition() == OrderCondition.WAIT_FOR_ACCEPT) {
