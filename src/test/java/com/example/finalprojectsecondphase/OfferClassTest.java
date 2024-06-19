@@ -7,6 +7,7 @@ import com.example.finalprojectsecondphase.entity.enums.OfferCondition;
 import com.example.finalprojectsecondphase.entity.enums.OrderCondition;
 import com.example.finalprojectsecondphase.exception.DuplicateInformationException;
 import com.example.finalprojectsecondphase.exception.NotFoundException;
+import com.example.finalprojectsecondphase.exception.WrongConditionException;
 import com.example.finalprojectsecondphase.exception.WrongInputPriceException;
 import com.example.finalprojectsecondphase.service.*;
 import com.example.finalprojectsecondphase.util.validation.CreatAndValidationDate;
@@ -203,7 +204,6 @@ public class OfferClassTest {
     }
 
 
-
     // TODO: 6/17/2024 -> RUN AFTER SECOND PART OF ORDER TEST *******
 
 
@@ -225,7 +225,7 @@ public class OfferClassTest {
     public void rejectOtherOffers() {
         com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
         offerService.rejectOtherOffers(order);
-        Offer rejectOffer = offerService.findById(3);
+        Offer rejectOffer = offerService.findById(2);
         Assertions.assertEquals(rejectOffer.getOfferCondition(), OfferCondition.REJECTED);
     }
 
@@ -263,5 +263,22 @@ public class OfferClassTest {
         OfferCondition offerCondition = OfferCondition.DONE;
         Assertions.assertThrows(NullPointerException.class,
                 () -> offerService.findByOfferCondition(offerCondition));
+    }
+
+    @DisplayName("test for check Order Condition true")
+    @Test
+    public void checkOrderConditionTrue() {
+        Order trueOrder = orderService.findById(1);
+        boolean trueFlag = offerService.checkOrderCondition(trueOrder);
+        Assertions.assertTrue(trueFlag);
+    }
+
+    @DisplayName("test for check Order Condition false")
+    @Test
+    public void checkOrderConditionFalse() {
+        Order falseOrder = orderService.findById(2);
+        Throwable exception = Assertions.assertThrows(WrongConditionException.class,
+                () -> offerService.checkOrderCondition(falseOrder));
+        Assertions.assertEquals("can not send offer for this order", exception.getMessage());
     }
 }

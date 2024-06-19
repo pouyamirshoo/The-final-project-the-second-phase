@@ -185,7 +185,6 @@ public class OrderClassTest {
     }
 
 
-
     // TODO: 6/17/2024 RUN AT SECOND PART ********
 
 
@@ -196,7 +195,6 @@ public class OrderClassTest {
         orderService.makeOrderConditionWaitForAccept(order);
         Assertions.assertEquals(order.getOrderCondition(), OrderCondition.WAIT_FOR_ACCEPT);
     }
-
 
 
     // TODO: 6/17/2024 CHECK DB FIRST **************
@@ -232,12 +230,10 @@ public class OrderClassTest {
     }
 
 
-
     // TODO: 6/17/2024 RUN AFTER MAKE ORDER ACCEPTED *******
 
 
     @DisplayName("test for can not make order ongoing")
-    @org.junit.jupiter.api.Order(2)
     @Test
     public void canNotMakeOrderOngoing() {
         com.example.finalprojectsecondphase.entity.Order order = orderService.findById(1);
@@ -246,7 +242,6 @@ public class OrderClassTest {
         Assertions.assertEquals("order can not be ongoing before need expert time",
                 exception.getMessage());
     }
-
 
 
     // TODO: 6/17/2024 CHECK DB FIRST **************

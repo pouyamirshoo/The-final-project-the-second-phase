@@ -194,7 +194,7 @@ class CustomerClassTest {
     @Order(9)
     @Test()
     public void canNotFindByCustomerId() {
-        int id = 2;
+        int id = 3;
         Throwable exception = Assertions.assertThrows(NotFoundException.class,
                 () -> customerService.findById(id));
         Assertions.assertEquals("customer with id " + id + " not founded", exception.getMessage());
